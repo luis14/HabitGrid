@@ -1,0 +1,760 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0254963C289A546225243F5A /* MedicationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABBBBB318DCDE940FC559B0 /* MedicationStore.swift */; };
+		08CAC67BA13AC2D6C0428F53 /* HabitSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4853C2BE48142D549D6E25EA /* HabitSchedule.swift */; };
+		0A865FBE15A8CDD084D59397 /* HabitsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97689035456CAAA157331DF0 /* HabitsListView.swift */; };
+		17E6D1301009109BB217D38C /* HabitGridApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31E99AAF93AF847D26B70BE /* HabitGridApp.swift */; };
+		1BB60FC435E4C060FDFAA3A4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45FAC9B9A9CE8F89C295F791 /* Localizable.strings */; };
+		1C5824B849A6D04505F86B52 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC29EF32AD19759FEB830A6 /* ContentView.swift */; };
+		1D0408AF8B59D0EE7626C13A /* MedStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107059AEC8B083C492623CE4 /* MedStatsView.swift */; };
+		2E0562831B1E10548103595C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6F5BE01AD1A0374BD966D7 /* NotificationService.swift */; };
+		304F539B273B04E9C26BCDE0 /* HabitCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738268AD3108CBF8D9544BD /* HabitCard.swift */; };
+		332E459BAA3A57967A9B9344 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213BE2CBB063DC7E0F8C308C /* OnboardingView.swift */; };
+		3E77394DEF67BD7833D76717 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5703A3AEAF60CC92BDA181 /* MockData.swift */; };
+		3ECFEC03A8F9FC4A30357740 /* AddEditHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44D7EE60C16B65371CE7C9 /* AddEditHabitView.swift */; };
+		4F33F1DF11F4E0F640ED7790 /* HabitStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175A2935BA519B703BEF7BB5 /* HabitStatsView.swift */; };
+		4FD29BF5E761ED5886BDB09D /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00868DAA2821ED1D38FA633F /* Habit.swift */; };
+		5903853026D354004656FEF1 /* MoodLogCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7397093511B0191A6DD8841 /* MoodLogCard.swift */; };
+		5967AE8D0C744AAADC15A8D9 /* HabitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8AFEE678A0FCC718234188 /* HabitStore.swift */; };
+		59C853AEBBA44B41FA93DA8F /* HabitStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3379BCC69A607C9983AFD991 /* HabitStoreTests.swift */; };
+		64C556CB040A21224D1E3796 /* ContributionGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802F2B1E00D097382F5F9CEA /* ContributionGraph.swift */; };
+		6A5DA523E657C5540FBD25AE /* MoodEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F31FA589E0F01941387A18 /* MoodEntry.swift */; };
+		6BF43D80B700E09032AED1AE /* MedicationTodaySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E838FC2AF425780EB233A983 /* MedicationTodaySection.swift */; };
+		6F15DE04466DF0499EBEBD1F /* TodayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ABA8152C86824C735A9A0B /* TodayViewModel.swift */; };
+		86C225DD1BB75F44AFB33174 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0977874560598776A5301185 /* StatsView.swift */; };
+		9134FE41197EF58DA9FE2B3A /* MedicationStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D46A906ACBEFD60C78D5436 /* MedicationStoreTests.swift */; };
+		A233A0C80702C6BFBDB9F141 /* MedsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9D3022BDDE081CCE33D506 /* MedsListView.swift */; };
+		A305B01F24F5DF4F91987C7B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B496862AA3980AB1311A22B6 /* SettingsView.swift */; };
+		AC63499DF0C98B3E9BF866AD /* HabitCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBFE971D2C8F253A5528C45 /* HabitCompletion.swift */; };
+		B2BB235A336E9447F44A5420 /* Medication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E61241FA078D471BA1971 /* Medication.swift */; };
+		B6FF75E79085C98D37CE1076 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0496DB5830AC01C61ACFD5 /* TodayView.swift */; };
+		BBEF4EE60D3789C3A0985E5F /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170F32AFC95C1A05DB4229AC /* Color+Hex.swift */; };
+		BC5854616CCB286E0790A82C /* MedicationDose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BAA06C649A187A48CAA7E3 /* MedicationDose.swift */; };
+		BDC2E9E9462E75483C81BB62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C748EA82E4A4320179E26CC8 /* Assets.xcassets */; };
+		D9B54A9FEB5B8200D94BC974 /* MedicationSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23446AF4389C043E0D089737 /* MedicationSchedule.swift */; };
+		DABF57470589F917C83990B7 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35ECB3936305DE28246BA18 /* InfoView.swift */; };
+		E23C5DFEFD0E6EB082F304C5 /* MiniContributionGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2C27AAB414B7ED6BE11B95 /* MiniContributionGraph.swift */; };
+		F17C70A92CA0A37B578E2BE6 /* AddEditMedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D68597CD875A00C647A96 /* AddEditMedicationView.swift */; };
+		F92112FAFD9726AFA7013F9B /* LogTakenSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3E95DDF88497333DEC598 /* LogTakenSheet.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		47413AE44C6617AA83AD5533 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03BE942D7F3A9EF9AF58E735 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A4AB586F44C76631DB9AA6E5;
+			remoteInfo = HabitGrid;
+		};
+		DED4F71C80B244F86160EF88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03BE942D7F3A9EF9AF58E735 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A4AB586F44C76631DB9AA6E5;
+			remoteInfo = HabitGrid;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00868DAA2821ED1D38FA633F /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
+		0977874560598776A5301185 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		107059AEC8B083C492623CE4 /* MedStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedStatsView.swift; sourceTree = "<group>"; };
+		170F32AFC95C1A05DB4229AC /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		175A2935BA519B703BEF7BB5 /* HabitStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitStatsView.swift; sourceTree = "<group>"; };
+		1BBACFE7FC9B985AF477039A /* HabitGridUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HabitGridUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C9D3022BDDE081CCE33D506 /* MedsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedsListView.swift; sourceTree = "<group>"; };
+		213BE2CBB063DC7E0F8C308C /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		23446AF4389C043E0D089737 /* MedicationSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationSchedule.swift; sourceTree = "<group>"; };
+		2C7D68597CD875A00C647A96 /* AddEditMedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditMedicationView.swift; sourceTree = "<group>"; };
+		3379BCC69A607C9983AFD991 /* HabitStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitStoreTests.swift; sourceTree = "<group>"; };
+		4738268AD3108CBF8D9544BD /* HabitCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCard.swift; sourceTree = "<group>"; };
+		4853C2BE48142D549D6E25EA /* HabitSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSchedule.swift; sourceTree = "<group>"; };
+		50C3E95DDF88497333DEC598 /* LogTakenSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTakenSheet.swift; sourceTree = "<group>"; };
+		5CC29EF32AD19759FEB830A6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5F5218EAD3CA53E33565676B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		64ABA8152C86824C735A9A0B /* TodayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewModel.swift; sourceTree = "<group>"; };
+		6A5703A3AEAF60CC92BDA181 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		6DBFE971D2C8F253A5528C45 /* HabitCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCompletion.swift; sourceTree = "<group>"; };
+		7D46A906ACBEFD60C78D5436 /* MedicationStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationStoreTests.swift; sourceTree = "<group>"; };
+		7F2C27AAB414B7ED6BE11B95 /* MiniContributionGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniContributionGraph.swift; sourceTree = "<group>"; };
+		7FDF8FED7D24ABF54C4EF127 /* HabitGridTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HabitGridTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		802F2B1E00D097382F5F9CEA /* ContributionGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionGraph.swift; sourceTree = "<group>"; };
+		844E61241FA078D471BA1971 /* Medication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medication.swift; sourceTree = "<group>"; };
+		8D0496DB5830AC01C61ACFD5 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+		97689035456CAAA157331DF0 /* HabitsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsListView.swift; sourceTree = "<group>"; };
+		97BAA06C649A187A48CAA7E3 /* MedicationDose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationDose.swift; sourceTree = "<group>"; };
+		9ABBBBB318DCDE940FC559B0 /* MedicationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationStore.swift; sourceTree = "<group>"; };
+		B1F31FA589E0F01941387A18 /* MoodEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodEntry.swift; sourceTree = "<group>"; };
+		B496862AA3980AB1311A22B6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		BA44D7EE60C16B65371CE7C9 /* AddEditHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditHabitView.swift; sourceTree = "<group>"; };
+		C3B276803BFA28BA881D60AE /* HabitGrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitGrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4100D14C5662C1AEA41A4C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C748EA82E4A4320179E26CC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CBA8638382BA8A8639B8CCFA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D35ECB3936305DE28246BA18 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		D7397093511B0191A6DD8841 /* MoodLogCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodLogCard.swift; sourceTree = "<group>"; };
+		DB6F5BE01AD1A0374BD966D7 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		E838FC2AF425780EB233A983 /* MedicationTodaySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationTodaySection.swift; sourceTree = "<group>"; };
+		EA8AFEE678A0FCC718234188 /* HabitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitStore.swift; sourceTree = "<group>"; };
+		F31E99AAF93AF847D26B70BE /* HabitGridApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitGridApp.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		11C7FABCA5E90CD5887F95D1 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				5CC29EF32AD19759FEB830A6 /* ContentView.swift */,
+				F31E99AAF93AF847D26B70BE /* HabitGridApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		14D73CA6E6E994CB12A39669 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C748EA82E4A4320179E26CC8 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		1F721929783C2A2C7EB68DB8 /* HabitGridTests */ = {
+			isa = PBXGroup;
+			children = (
+				3379BCC69A607C9983AFD991 /* HabitStoreTests.swift */,
+				7D46A906ACBEFD60C78D5436 /* MedicationStoreTests.swift */,
+			);
+			path = HabitGridTests;
+			sourceTree = "<group>";
+		};
+		287FD791D58ACD0B52FCC83D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				170F32AFC95C1A05DB4229AC /* Color+Hex.swift */,
+				802F2B1E00D097382F5F9CEA /* ContributionGraph.swift */,
+				4738268AD3108CBF8D9544BD /* HabitCard.swift */,
+				7F2C27AAB414B7ED6BE11B95 /* MiniContributionGraph.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		40A4C7F7C3549127F9CCA358 = {
+			isa = PBXGroup;
+			children = (
+				80ECA064A6C06BAB6C132047 /* HabitGrid */,
+				1F721929783C2A2C7EB68DB8 /* HabitGridTests */,
+				C6A9FC39270B7ACC4CA07ABC /* HabitGridUITests */,
+				E58E6BF6779C270ABED7565C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5A53F55CD9759A1C6621390B /* Stats */ = {
+			isa = PBXGroup;
+			children = (
+				175A2935BA519B703BEF7BB5 /* HabitStatsView.swift */,
+				0977874560598776A5301185 /* StatsView.swift */,
+			);
+			path = Stats;
+			sourceTree = "<group>";
+		};
+		63D0B5279E866839623C7570 /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				E838FC2AF425780EB233A983 /* MedicationTodaySection.swift */,
+				D7397093511B0191A6DD8841 /* MoodLogCard.swift */,
+				8D0496DB5830AC01C61ACFD5 /* TodayView.swift */,
+				64ABA8152C86824C735A9A0B /* TodayViewModel.swift */,
+			);
+			path = Today;
+			sourceTree = "<group>";
+		};
+		779A000B1E18386F7957AE39 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				EA8AFEE678A0FCC718234188 /* HabitStore.swift */,
+				9ABBBBB318DCDE940FC559B0 /* MedicationStore.swift */,
+				6A5703A3AEAF60CC92BDA181 /* MockData.swift */,
+				DB6F5BE01AD1A0374BD966D7 /* NotificationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		80ECA064A6C06BAB6C132047 /* HabitGrid */ = {
+			isa = PBXGroup;
+			children = (
+				11C7FABCA5E90CD5887F95D1 /* App */,
+				287FD791D58ACD0B52FCC83D /* Components */,
+				B9DC046EEB2889FFBFFFD204 /* Habits */,
+				B8CD308308D0C797B3DD86FF /* Info */,
+				45FAC9B9A9CE8F89C295F791 /* Localizable.strings */,
+				8FD4E144A62964EEAAAABFED /* Medications */,
+				C3100947C42F78EF11E9B208 /* Models */,
+				BB33F19C1C85AE7D9928E57D /* Onboarding */,
+				14D73CA6E6E994CB12A39669 /* Resources */,
+				779A000B1E18386F7957AE39 /* Services */,
+				AC6DDB5A7A7418ACEAF159D9 /* Settings */,
+				5A53F55CD9759A1C6621390B /* Stats */,
+				63D0B5279E866839623C7570 /* Today */,
+				C4100D14C5662C1AEA41A4C4 /* Info.plist */,
+			);
+			path = HabitGrid;
+			sourceTree = "<group>";
+		};
+		8FD4E144A62964EEAAAABFED /* Medications */ = {
+			isa = PBXGroup;
+			children = (
+				2C7D68597CD875A00C647A96 /* AddEditMedicationView.swift */,
+				50C3E95DDF88497333DEC598 /* LogTakenSheet.swift */,
+				1C9D3022BDDE081CCE33D506 /* MedsListView.swift */,
+				107059AEC8B083C492623CE4 /* MedStatsView.swift */,
+			);
+			path = Medications;
+			sourceTree = "<group>";
+		};
+		AC6DDB5A7A7418ACEAF159D9 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				B496862AA3980AB1311A22B6 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		B8CD308308D0C797B3DD86FF /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				D35ECB3936305DE28246BA18 /* InfoView.swift */,
+			);
+			path = Info;
+			sourceTree = "<group>";
+		};
+		B9DC046EEB2889FFBFFFD204 /* Habits */ = {
+			isa = PBXGroup;
+			children = (
+				BA44D7EE60C16B65371CE7C9 /* AddEditHabitView.swift */,
+				97689035456CAAA157331DF0 /* HabitsListView.swift */,
+			);
+			path = Habits;
+			sourceTree = "<group>";
+		};
+		BB33F19C1C85AE7D9928E57D /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				213BE2CBB063DC7E0F8C308C /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		C3100947C42F78EF11E9B208 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				00868DAA2821ED1D38FA633F /* Habit.swift */,
+				6DBFE971D2C8F253A5528C45 /* HabitCompletion.swift */,
+				4853C2BE48142D549D6E25EA /* HabitSchedule.swift */,
+				844E61241FA078D471BA1971 /* Medication.swift */,
+				97BAA06C649A187A48CAA7E3 /* MedicationDose.swift */,
+				23446AF4389C043E0D089737 /* MedicationSchedule.swift */,
+				B1F31FA589E0F01941387A18 /* MoodEntry.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C6A9FC39270B7ACC4CA07ABC /* HabitGridUITests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HabitGridUITests;
+			sourceTree = "<group>";
+		};
+		E58E6BF6779C270ABED7565C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C3B276803BFA28BA881D60AE /* HabitGrid.app */,
+				7FDF8FED7D24ABF54C4EF127 /* HabitGridTests.xctest */,
+				1BBACFE7FC9B985AF477039A /* HabitGridUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A4AB586F44C76631DB9AA6E5 /* HabitGrid */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0F391176851CC17AF8CABB6A /* Build configuration list for PBXNativeTarget "HabitGrid" */;
+			buildPhases = (
+				4649712E64D90742B757EF69 /* Sources */,
+				FB5EFD3CEF84EB5ED13F641F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HabitGrid;
+			packageProductDependencies = (
+			);
+			productName = HabitGrid;
+			productReference = C3B276803BFA28BA881D60AE /* HabitGrid.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C4C0411252E87933ED3B3773 /* HabitGridTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB58FF28E5DAAB5AE2E5CE54 /* Build configuration list for PBXNativeTarget "HabitGridTests" */;
+			buildPhases = (
+				F91F85CF34C6C2E8526647C4 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E48A0FAF4E25151CF0EDCC8E /* PBXTargetDependency */,
+			);
+			name = HabitGridTests;
+			packageProductDependencies = (
+			);
+			productName = HabitGridTests;
+			productReference = 7FDF8FED7D24ABF54C4EF127 /* HabitGridTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E3B41AE1DF8481F75A44C2C6 /* HabitGridUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 515E0D56D92982C16528A4C4 /* Build configuration list for PBXNativeTarget "HabitGridUITests" */;
+			buildPhases = (
+				3741D94B3EAC855F554E707C /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7E9730CD0968FF995B77EDCC /* PBXTargetDependency */,
+			);
+			name = HabitGridUITests;
+			packageProductDependencies = (
+			);
+			productName = HabitGridUITests;
+			productReference = 1BBACFE7FC9B985AF477039A /* HabitGridUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		03BE942D7F3A9EF9AF58E735 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					E3B41AE1DF8481F75A44C2C6 = {
+						TestTargetID = A4AB586F44C76631DB9AA6E5;
+					};
+				};
+			};
+			buildConfigurationList = 4A54312292952A53B02CBFDD /* Build configuration list for PBXProject "HabitGrid" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+				es,
+			);
+			mainGroup = 40A4C7F7C3549127F9CCA358;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = E58E6BF6779C270ABED7565C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A4AB586F44C76631DB9AA6E5 /* HabitGrid */,
+				C4C0411252E87933ED3B3773 /* HabitGridTests */,
+				E3B41AE1DF8481F75A44C2C6 /* HabitGridUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FB5EFD3CEF84EB5ED13F641F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDC2E9E9462E75483C81BB62 /* Assets.xcassets in Resources */,
+				1BB60FC435E4C060FDFAA3A4 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3741D94B3EAC855F554E707C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4649712E64D90742B757EF69 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3ECFEC03A8F9FC4A30357740 /* AddEditHabitView.swift in Sources */,
+				F17C70A92CA0A37B578E2BE6 /* AddEditMedicationView.swift in Sources */,
+				BBEF4EE60D3789C3A0985E5F /* Color+Hex.swift in Sources */,
+				1C5824B849A6D04505F86B52 /* ContentView.swift in Sources */,
+				64C556CB040A21224D1E3796 /* ContributionGraph.swift in Sources */,
+				4FD29BF5E761ED5886BDB09D /* Habit.swift in Sources */,
+				304F539B273B04E9C26BCDE0 /* HabitCard.swift in Sources */,
+				AC63499DF0C98B3E9BF866AD /* HabitCompletion.swift in Sources */,
+				17E6D1301009109BB217D38C /* HabitGridApp.swift in Sources */,
+				08CAC67BA13AC2D6C0428F53 /* HabitSchedule.swift in Sources */,
+				4F33F1DF11F4E0F640ED7790 /* HabitStatsView.swift in Sources */,
+				5967AE8D0C744AAADC15A8D9 /* HabitStore.swift in Sources */,
+				0A865FBE15A8CDD084D59397 /* HabitsListView.swift in Sources */,
+				DABF57470589F917C83990B7 /* InfoView.swift in Sources */,
+				F92112FAFD9726AFA7013F9B /* LogTakenSheet.swift in Sources */,
+				1D0408AF8B59D0EE7626C13A /* MedStatsView.swift in Sources */,
+				B2BB235A336E9447F44A5420 /* Medication.swift in Sources */,
+				BC5854616CCB286E0790A82C /* MedicationDose.swift in Sources */,
+				D9B54A9FEB5B8200D94BC974 /* MedicationSchedule.swift in Sources */,
+				0254963C289A546225243F5A /* MedicationStore.swift in Sources */,
+				6BF43D80B700E09032AED1AE /* MedicationTodaySection.swift in Sources */,
+				A233A0C80702C6BFBDB9F141 /* MedsListView.swift in Sources */,
+				E23C5DFEFD0E6EB082F304C5 /* MiniContributionGraph.swift in Sources */,
+				3E77394DEF67BD7833D76717 /* MockData.swift in Sources */,
+				6A5DA523E657C5540FBD25AE /* MoodEntry.swift in Sources */,
+				5903853026D354004656FEF1 /* MoodLogCard.swift in Sources */,
+				2E0562831B1E10548103595C /* NotificationService.swift in Sources */,
+				332E459BAA3A57967A9B9344 /* OnboardingView.swift in Sources */,
+				A305B01F24F5DF4F91987C7B /* SettingsView.swift in Sources */,
+				86C225DD1BB75F44AFB33174 /* StatsView.swift in Sources */,
+				B6FF75E79085C98D37CE1076 /* TodayView.swift in Sources */,
+				6F15DE04466DF0499EBEBD1F /* TodayViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F91F85CF34C6C2E8526647C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59C853AEBBA44B41FA93DA8F /* HabitStoreTests.swift in Sources */,
+				9134FE41197EF58DA9FE2B3A /* MedicationStoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7E9730CD0968FF995B77EDCC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A4AB586F44C76631DB9AA6E5 /* HabitGrid */;
+			targetProxy = 47413AE44C6617AA83AD5533 /* PBXContainerItemProxy */;
+		};
+		E48A0FAF4E25151CF0EDCC8E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A4AB586F44C76631DB9AA6E5 /* HabitGrid */;
+			targetProxy = DED4F71C80B244F86160EF88 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		45FAC9B9A9CE8F89C295F791 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBA8638382BA8A8639B8CCFA /* en */,
+				5F5218EAD3CA53E33565676B /* es */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0351D627D9D496AB7D0EA295 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.habitgrid.HabitGridUITests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = HabitGrid;
+			};
+			name = Release;
+		};
+		4353221A0867FD5F7FEFCF6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_LANGUAGE = en;
+				DEVELOPMENT_TEAM = 3TD8YN63DK;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = HabitGrid/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.habitgrid.HabitGrid;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		503C4F8BA8054B7F1ADD8D8F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_LANGUAGE = en;
+				DEVELOPMENT_TEAM = 3TD8YN63DK;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = HabitGrid/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.habitgrid.HabitGrid;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7BB2F7C642F454860ED34086 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.habitgrid.HabitGridUITests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = HabitGrid;
+			};
+			name = Debug;
+		};
+		83A9EF82C1C44161E24596B4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B13110FF1DD2B5C2888F6ACA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B7A11C82A4FC7201F034B361 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.habitgrid.HabitGridTests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HabitGrid.app/HabitGrid";
+			};
+			name = Release;
+		};
+		BF13563793CAADC5535295FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.habitgrid.HabitGridTests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HabitGrid.app/HabitGrid";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0F391176851CC17AF8CABB6A /* Build configuration list for PBXNativeTarget "HabitGrid" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4353221A0867FD5F7FEFCF6A /* Debug */,
+				503C4F8BA8054B7F1ADD8D8F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4A54312292952A53B02CBFDD /* Build configuration list for PBXProject "HabitGrid" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B13110FF1DD2B5C2888F6ACA /* Debug */,
+				83A9EF82C1C44161E24596B4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		515E0D56D92982C16528A4C4 /* Build configuration list for PBXNativeTarget "HabitGridUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7BB2F7C642F454860ED34086 /* Debug */,
+				0351D627D9D496AB7D0EA295 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		AB58FF28E5DAAB5AE2E5CE54 /* Build configuration list for PBXNativeTarget "HabitGridTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF13563793CAADC5535295FE /* Debug */,
+				B7A11C82A4FC7201F034B361 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 03BE942D7F3A9EF9AF58E735 /* Project object */;
+}

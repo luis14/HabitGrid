@@ -1,0 +1,285 @@
+/* Tab labels */
+"Today" = "Today";
+"Habits" = "Habits";
+"Meds" = "Meds";
+"Stats" = "Stats";
+"Settings" = "Settings";
+
+/* Common actions */
+"Save" = "Save";
+"Cancel" = "Cancel";
+"Delete" = "Delete";
+"Edit" = "Edit";
+"Archive" = "Archive";
+"Unarchive" = "Unarchive";
+"Restore" = "Restore";
+"Skip" = "Skip";
+"Next" = "Next";
+"Enable" = "Enable";
+"OK" = "OK";
+"Reset" = "Reset";
+
+/* Days of week (abbreviations) */
+"Sun" = "Sun";
+"Mon" = "Mon";
+"Tue" = "Tue";
+"Wed" = "Wed";
+"Thu" = "Thu";
+"Fri" = "Fri";
+"Sat" = "Sat";
+
+/* Days of week (full) */
+"Sunday" = "Sunday";
+"Monday" = "Monday";
+"Tuesday" = "Tuesday";
+"Wednesday" = "Wednesday";
+"Thursday" = "Thursday";
+"Friday" = "Friday";
+"Saturday" = "Saturday";
+
+/* Schedule names */
+"Every Day" = "Every Day";
+"Weekdays" = "Weekdays";
+"Weekdays (Mon–Fri)" = "Weekdays (Mon–Fri)";
+"As Needed (PRN)" = "As Needed (PRN)";
+
+/* Dynamic schedule format — %d = count */
+"%d× per week" = "%d× per week";
+
+/* Mood levels */
+"Rough" = "Rough";
+"Low" = "Low";
+"Okay" = "Okay";
+"Good" = "Good";
+"Great" = "Great";
+
+/* Medication forms */
+"Tablet" = "Tablet";
+"Capsule" = "Capsule";
+"Liquid" = "Liquid";
+"Injection" = "Injection";
+"Inhaler" = "Inhaler";
+"Topical" = "Topical";
+"Drops" = "Drops";
+"Patch" = "Patch";
+"Other" = "Other";
+
+/* Today view */
+"All done! 🎉" = "All done! 🎉";
+"No habits due today" = "No habits due today";
+"Head to the Habits tab to add some." = "Head to the Habits tab to add some.";
+"Refresh" = "Refresh";
+"Log Completion" = "Log Completion";
+"Count" = "Count";
+"Completed" = "Completed";
+"Completion" = "Completion";
+"How did it go?" = "How did it go?";
+"Note (optional)" = "Note (optional)";
+
+/* Today progress — %d completed, %d total */
+"%d of %d habits" = "%d of %d habits";
+
+/* Completion count — %d current, %d target */
+"%d / %d" = "%d / %d";
+
+/* Mood log card */
+"Mood" = "Mood";
+"How are you feeling?" = "How are you feeling?";
+"What's on your mind?" = "What's on your mind?";
+"Delete Entry" = "Delete Entry";
+"Log Mood" = "Log Mood";
+"Edit Entry" = "Edit Entry";
+"Delete this mood entry?" = "Delete this mood entry?";
+"Mark taken" = "Mark taken";
+
+/* Mood summary — %@ = mood label */
+"Feeling %@ today" = "Feeling %@ today";
+"Daily avg: %@" = "Daily avg: %@";
+
+/* Log count — %d = count */
+"· %d log" = "· %d log";
+"· %d logs" = "· %d logs";
+
+/* Medications section */
+"Medications" = "Medications";
+"No medications" = "No medications";
+"Tap + to track a prescription or supplement." = "Tap + to track a prescription or supplement.";
+"Add Medication" = "Add Medication";
+"Add medication" = "Add medication";
+"Active" = "Active";
+"Archived" = "Archived";
+"Delete permanently" = "Delete permanently";
+
+/* Accessibility */
+"Double-tap to toggle, hold for options" = "Double-tap to toggle, hold for options";
+
+/* Habits list */
+"Search habits" = "Search habits";
+"Incomplete today" = "Incomplete today";
+"All caught up!" = "All caught up!";
+"Delete Habit?" = "Delete Habit?";
+
+/* Dynamic alert — %@ = habit name */
+"\"%@\" and all its history will be permanently removed." = "\"%@\" and all its history will be permanently removed.";
+
+/* Archived section header — %d = count */
+"Archived (%d)" = "Archived (%d)";
+
+/* Add/Edit Habit */
+"New Habit" = "New Habit";
+"Edit Habit" = "Edit Habit";
+"Habit name" = "Habit name";
+"Identity" = "Identity";
+"Color" = "Color";
+"Frequency" = "Frequency";
+"Daily" = "Daily";
+"Custom" = "Custom";
+"N×/week" = "N×/week";
+"Schedule" = "Schedule";
+"Habit is due every day." = "Habit is due every day.";
+"Habit is due Monday–Friday." = "Habit is due Monday–Friday.";
+"Select at least one day." = "Select at least one day.";
+"Habit is due on the selected days." = "Habit is due on the selected days.";
+"Daily Target" = "Daily Target";
+"Binary completion — one tap marks it done." = "Binary completion — one tap marks it done.";
+"Enable reminder" = "Enable reminder";
+"Reminder time" = "Reminder time";
+"Reminder" = "Reminder";
+"Notifications require permission in iOS Settings." = "Notifications require permission in iOS Settings.";
+
+/* Dynamic habit footers — %d = count */
+"Habit is due %d× per week, any day." = "Habit is due %d× per week, any day.";
+"Daily target: %d" = "Daily target: %d";
+"Track up to %d completions per day (e.g. glasses of water)." = "Track up to %d completions per day (e.g. glasses of water).";
+"Times per week: %d" = "Times per week: %d";
+
+/* Add/Edit Medication */
+"New Medication" = "New Medication";
+"Edit Medication" = "Edit Medication";
+"Medication name" = "Medication name";
+"As Needed" = "As Needed";
+"Add dose time" = "Add dose time";
+"Dose Times" = "Dose Times";
+"A reminder notification is sent at each time on scheduled days." = "A reminder notification is sent at each time on scheduled days.";
+"Start date" = "Start date";
+"Has end date" = "Has end date";
+"End date" = "End date";
+"Duration" = "Duration";
+"Strength" = "Strength";
+"e.g. 500 mg" = "e.g. 500 mg";
+"Form" = "Form";
+"Prescriber" = "Prescriber";
+"Optional" = "Optional";
+"Notes" = "Notes";
+"Details" = "Details";
+
+/* Dynamic dose label — %d = dose number */
+"Dose %d" = "Dose %d";
+
+/* Inventory */
+"Track pill count" = "Track pill count";
+"Inventory" = "Inventory";
+"Log Dose" = "Log Dose";
+"Current supply: %d" = "Current supply: %d";
+"Pills per dose: %d" = "Pills per dose: %d";
+"Low-stock alert at: %d" = "Low-stock alert at: %d";
+"%d left" = "%d left";
+"You'll be notified when supply drops to %d or fewer." = "You'll be notified when supply drops to %d or fewer.";
+
+/* Medication today section */
+"No doses scheduled for today." = "No doses scheduled for today.";
+"Log Dose Now" = "Log Dose Now";
+"Undo" = "Undo";
+
+/* Medication stats */
+"Adherence — past year" = "Adherence — past year";
+"Current Streak" = "Current Streak";
+"30-day Adherence" = "30-day Adherence";
+"Total Taken" = "Total Taken";
+"Started" = "Started";
+"Ends" = "Ends";
+"Longest Streak" = "Longest Streak";
+
+/* Dynamic med stats — %d = days */
+"%d days" = "%d days";
+
+/* Stats view */
+"Best streak" = "Best streak";
+"30d avg" = "30d avg";
+"Year Overview" = "Year Overview";
+"Average mood" = "Average mood";
+"days logged" = "days logged";
+"Last 30 days" = "Last 30 days";
+"No stats yet" = "No stats yet";
+"Create habits in the Habits tab, then come back here to see your progress." = "Create habits in the Habits tab, then come back here to see your progress.";
+
+/* Habit stats */
+"Period" = "Period";
+"Contribution" = "Contribution";
+"Current\nStreak" = "Current\nStreak";
+"Longest\nStreak" = "Longest\nStreak";
+"By Day of Week" = "By Day of Week";
+
+/* Settings */
+"Appearance" = "Appearance";
+"Theme" = "Theme";
+"System" = "System";
+"Light" = "Light";
+"Dark" = "Dark";
+"Calendar" = "Calendar";
+"Week starts on" = "Week starts on";
+"Notifications" = "Notifications";
+"Notifications enabled" = "Notifications enabled";
+"Notifications disabled" = "Notifications disabled";
+"Reschedule habit reminders" = "Reschedule habit reminders";
+"Reschedule medication reminders" = "Reschedule medication reminders";
+"Data" = "Data";
+"Export to JSON" = "Export to JSON";
+"Import from JSON" = "Import from JSON";
+"Reset all data…" = "Reset all data…";
+"About" = "About";
+"Version" = "Version";
+"Build" = "Build";
+"View onboarding again" = "View onboarding again";
+"Reset all data?" = "Reset all data?";
+"This will permanently delete every habit and all completion history. This cannot be undone." = "This will permanently delete every habit and all completion history. This cannot be undone.";
+"Import result" = "Import result";
+
+/* Dynamic settings messages — %d imported, %d completions */
+"Imported %d new habit(s) and %d completion record(s)." = "Imported %d new habit(s) and %d completion record(s).";
+
+/* Dynamic import error — %@ = error */
+"Import failed: %@" = "Import failed: %@";
+
+/* Info view */
+"HabitGrid" = "HabitGrid";
+"Build habits. See your progress." = "Build habits. See your progress.";
+"Features" = "Features";
+"Contribution Heatmap" = "Contribution Heatmap";
+"GitHub-style grid shows every day at a glance" = "GitHub-style grid shows every day at a glance";
+"Streak Tracking" = "Streak Tracking";
+"Daily and weekly streaks with archive awareness" = "Daily and weekly streaks with archive awareness";
+"Mood Logging" = "Mood Logging";
+"Quick daily check-in with optional notes" = "Quick daily check-in with optional notes";
+"Analytics" = "Analytics";
+"Weekday breakdown and completion rates" = "Weekday breakdown and completion rates";
+"Reminders" = "Reminders";
+"Local notifications, no account required" = "Local notifications, no account required";
+"Tips" = "Tips";
+"Swipe left on a habit to delete it" = "Swipe left on a habit to delete it";
+"Swipe right on a habit to edit it" = "Swipe right on a habit to edit it";
+"Long-press a habit for more options" = "Long-press a habit for more options";
+"Tap the circle on any row to log a quick completion" = "Tap the circle on any row to log a quick completion";
+"Long-press the Today card to log count + note" = "Long-press the Today card to log count + note";
+"Privacy" = "Privacy";
+"All data is stored on-device" = "All data is stored on-device";
+"HabitGrid uses SwiftData with no iCloud sync and no network requests. Your habits never leave your device." = "HabitGrid uses SwiftData with no iCloud sync and no network requests. Your habits never leave your device.";
+
+/* Onboarding */
+"Build better habits" = "Build better habits";
+"Track any habit — daily runs, reading, hydration — and watch your streaks grow day by day." = "Track any habit — daily runs, reading, hydration — and watch your streaks grow day by day.";
+"See your progress at a glance" = "See your progress at a glance";
+"HabitGrid's GitHub-style contribution chart gives you a beautiful year-long picture of your consistency." = "HabitGrid's GitHub-style contribution chart gives you a beautiful year-long picture of your consistency.";
+"Gentle reminders" = "Gentle reminders";
+"Set a reminder for each habit so you never miss a day. Notifications arrive right when you need them." = "Set a reminder for each habit so you never miss a day. Notifications arrive right when you need them.";
+"Get Started" = "Get Started";

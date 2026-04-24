@@ -1,0 +1,285 @@
+/* Tab labels */
+"Today" = "Hoy";
+"Habits" = "Hábitos";
+"Meds" = "Medicamentos";
+"Stats" = "Estadísticas";
+"Settings" = "Ajustes";
+
+/* Common actions */
+"Save" = "Guardar";
+"Cancel" = "Cancelar";
+"Delete" = "Eliminar";
+"Edit" = "Editar";
+"Archive" = "Archivar";
+"Unarchive" = "Desarchivar";
+"Restore" = "Restaurar";
+"Skip" = "Omitir";
+"Next" = "Siguiente";
+"Enable" = "Activar";
+"OK" = "Aceptar";
+"Reset" = "Restablecer";
+
+/* Days of week (abbreviations) */
+"Sun" = "Dom";
+"Mon" = "Lun";
+"Tue" = "Mar";
+"Wed" = "Mié";
+"Thu" = "Jue";
+"Fri" = "Vie";
+"Sat" = "Sáb";
+
+/* Days of week (full) */
+"Sunday" = "Domingo";
+"Monday" = "Lunes";
+"Tuesday" = "Martes";
+"Wednesday" = "Miércoles";
+"Thursday" = "Jueves";
+"Friday" = "Viernes";
+"Saturday" = "Sábado";
+
+/* Schedule names */
+"Every Day" = "Todos los días";
+"Weekdays" = "Días laborables";
+"Weekdays (Mon–Fri)" = "Días laborables (Lun–Vie)";
+"As Needed (PRN)" = "Según necesidad (PRN)";
+
+/* Dynamic schedule format — %d = count */
+"%d× per week" = "%d× por semana";
+
+/* Mood levels */
+"Rough" = "Mal";
+"Low" = "Bajo";
+"Okay" = "Normal";
+"Good" = "Bien";
+"Great" = "Excelente";
+
+/* Medication forms */
+"Tablet" = "Tableta";
+"Capsule" = "Cápsula";
+"Liquid" = "Líquido";
+"Injection" = "Inyección";
+"Inhaler" = "Inhalador";
+"Topical" = "Tópico";
+"Drops" = "Gotas";
+"Patch" = "Parche";
+"Other" = "Otro";
+
+/* Today view */
+"All done! 🎉" = "¡Todo listo! 🎉";
+"No habits due today" = "Sin hábitos para hoy";
+"Head to the Habits tab to add some." = "Ve a la pestaña Hábitos para añadir algunos.";
+"Refresh" = "Actualizar";
+"Log Completion" = "Registrar progreso";
+"Count" = "Cantidad";
+"Completed" = "Completado";
+"Completion" = "Progreso";
+"How did it go?" = "¿Cómo fue?";
+"Note (optional)" = "Nota (opcional)";
+
+/* Today progress — %d completed, %d total */
+"%d of %d habits" = "%d de %d hábitos";
+
+/* Completion count — %d current, %d target */
+"%d / %d" = "%d / %d";
+
+/* Mood log card */
+"Mood" = "Estado de ánimo";
+"How are you feeling?" = "¿Cómo te sientes?";
+"What's on your mind?" = "¿En qué estás pensando?";
+"Delete Entry" = "Eliminar registro";
+"Log Mood" = "Registrar estado";
+"Edit Entry" = "Editar registro";
+"Delete this mood entry?" = "¿Eliminar este registro de estado?";
+"Mark taken" = "Marcar como tomado";
+
+/* Mood summary — %@ = mood label */
+"Feeling %@ today" = "Sintiéndote %@ hoy";
+"Daily avg: %@" = "Promedio diario: %@";
+
+/* Log count — %d = count */
+"· %d log" = "· %d registro";
+"· %d logs" = "· %d registros";
+
+/* Medications section */
+"Medications" = "Medicamentos";
+"No medications" = "Sin medicamentos";
+"Tap + to track a prescription or supplement." = "Toca + para registrar una receta o suplemento.";
+"Add Medication" = "Añadir medicamento";
+"Add medication" = "Añadir medicamento";
+"Active" = "Activo";
+"Archived" = "Archivado";
+"Delete permanently" = "Eliminar permanentemente";
+
+/* Accessibility */
+"Double-tap to toggle, hold for options" = "Doble toque para activar, mantén presionado para opciones";
+
+/* Habits list */
+"Search habits" = "Buscar hábitos";
+"Incomplete today" = "Sin completar hoy";
+"All caught up!" = "¡Todo al día!";
+"Delete Habit?" = "¿Eliminar hábito?";
+
+/* Dynamic alert — %@ = habit name */
+"\"%@\" and all its history will be permanently removed." = "\"%@\" y todo su historial serán eliminados permanentemente.";
+
+/* Archived section header — %d = count */
+"Archived (%d)" = "Archivados (%d)";
+
+/* Add/Edit Habit */
+"New Habit" = "Nuevo hábito";
+"Edit Habit" = "Editar hábito";
+"Habit name" = "Nombre del hábito";
+"Identity" = "Identidad";
+"Color" = "Color";
+"Frequency" = "Frecuencia";
+"Daily" = "Diario";
+"Custom" = "Personalizado";
+"N×/week" = "N×/semana";
+"Schedule" = "Programa";
+"Habit is due every day." = "El hábito se realiza todos los días.";
+"Habit is due Monday–Friday." = "El hábito se realiza de lunes a viernes.";
+"Select at least one day." = "Selecciona al menos un día.";
+"Habit is due on the selected days." = "El hábito se realiza los días seleccionados.";
+"Daily Target" = "Meta diaria";
+"Binary completion — one tap marks it done." = "Finalización binaria — un toque lo marca como hecho.";
+"Enable reminder" = "Activar recordatorio";
+"Reminder time" = "Hora del recordatorio";
+"Reminder" = "Recordatorio";
+"Notifications require permission in iOS Settings." = "Las notificaciones requieren permiso en Ajustes de iOS.";
+
+/* Dynamic habit footers — %d = count */
+"Habit is due %d× per week, any day." = "El hábito se realiza %d× por semana, cualquier día.";
+"Daily target: %d" = "Meta diaria: %d";
+"Track up to %d completions per day (e.g. glasses of water)." = "Registra hasta %d completados por día (p. ej., vasos de agua).";
+"Times per week: %d" = "Veces por semana: %d";
+
+/* Add/Edit Medication */
+"New Medication" = "Nuevo medicamento";
+"Edit Medication" = "Editar medicamento";
+"Medication name" = "Nombre del medicamento";
+"As Needed" = "Según necesidad";
+"Add dose time" = "Añadir hora de dosis";
+"Dose Times" = "Horarios de dosis";
+"A reminder notification is sent at each time on scheduled days." = "Se envía una notificación en cada horario los días programados.";
+"Start date" = "Fecha de inicio";
+"Has end date" = "Tiene fecha de fin";
+"End date" = "Fecha de fin";
+"Duration" = "Duración";
+"Strength" = "Concentración";
+"e.g. 500 mg" = "p. ej., 500 mg";
+"Form" = "Forma";
+"Prescriber" = "Médico";
+"Optional" = "Opcional";
+"Notes" = "Notas";
+"Details" = "Detalles";
+
+/* Dynamic dose label — %d = dose number */
+"Dose %d" = "Dosis %d";
+
+/* Inventory */
+"Track pill count" = "Registrar cantidad de pastillas";
+"Inventory" = "Inventario";
+"Log Dose" = "Registrar dosis";
+"Current supply: %d" = "Suministro actual: %d";
+"Pills per dose: %d" = "Pastillas por dosis: %d";
+"Low-stock alert at: %d" = "Alerta de pocas pastillas al llegar a: %d";
+"%d left" = "%d restantes";
+"You'll be notified when supply drops to %d or fewer." = "Se te notificará cuando el suministro baje a %d o menos.";
+
+/* Medication today section */
+"No doses scheduled for today." = "Sin dosis programadas para hoy.";
+"Log Dose Now" = "Registrar dosis ahora";
+"Undo" = "Deshacer";
+
+/* Medication stats */
+"Adherence — past year" = "Adherencia — último año";
+"Current Streak" = "Racha actual";
+"30-day Adherence" = "Adherencia 30 días";
+"Total Taken" = "Total tomado";
+"Started" = "Iniciado";
+"Ends" = "Termina";
+"Longest Streak" = "Racha más larga";
+
+/* Dynamic med stats — %d = days */
+"%d days" = "%d días";
+
+/* Stats view */
+"Best streak" = "Mejor racha";
+"30d avg" = "Prom. 30d";
+"Year Overview" = "Resumen del año";
+"Average mood" = "Estado de ánimo promedio";
+"days logged" = "días registrados";
+"Last 30 days" = "Últimos 30 días";
+"No stats yet" = "Sin estadísticas aún";
+"Create habits in the Habits tab, then come back here to see your progress." = "Crea hábitos en la pestaña Hábitos y vuelve aquí para ver tu progreso.";
+
+/* Habit stats */
+"Period" = "Período";
+"Contribution" = "Contribución";
+"Current\nStreak" = "Racha\nactual";
+"Longest\nStreak" = "Racha\nmás larga";
+"By Day of Week" = "Por día de la semana";
+
+/* Settings */
+"Appearance" = "Apariencia";
+"Theme" = "Tema";
+"System" = "Sistema";
+"Light" = "Claro";
+"Dark" = "Oscuro";
+"Calendar" = "Calendario";
+"Week starts on" = "La semana empieza el";
+"Notifications" = "Notificaciones";
+"Notifications enabled" = "Notificaciones activadas";
+"Notifications disabled" = "Notificaciones desactivadas";
+"Reschedule habit reminders" = "Reprogramar recordatorios de hábitos";
+"Reschedule medication reminders" = "Reprogramar recordatorios de medicamentos";
+"Data" = "Datos";
+"Export to JSON" = "Exportar a JSON";
+"Import from JSON" = "Importar desde JSON";
+"Reset all data…" = "Restablecer todos los datos…";
+"About" = "Acerca de";
+"Version" = "Versión";
+"Build" = "Compilación";
+"View onboarding again" = "Ver introducción de nuevo";
+"Reset all data?" = "¿Restablecer todos los datos?";
+"This will permanently delete every habit and all completion history. This cannot be undone." = "Esto eliminará permanentemente todos los hábitos y su historial. Esta acción no se puede deshacer.";
+"Import result" = "Resultado de importación";
+
+/* Dynamic settings messages — %d imported, %d completions */
+"Imported %d new habit(s) and %d completion record(s)." = "Se importaron %d hábito(s) nuevo(s) y %d registro(s) de progreso.";
+
+/* Dynamic import error — %@ = error */
+"Import failed: %@" = "Error al importar: %@";
+
+/* Info view */
+"HabitGrid" = "HabitGrid";
+"Build habits. See your progress." = "Crea hábitos. Mira tu progreso.";
+"Features" = "Funciones";
+"Contribution Heatmap" = "Mapa de calor";
+"GitHub-style grid shows every day at a glance" = "La cuadrícula estilo GitHub muestra cada día de un vistazo";
+"Streak Tracking" = "Seguimiento de rachas";
+"Daily and weekly streaks with archive awareness" = "Rachas diarias y semanales con soporte de archivo";
+"Mood Logging" = "Registro de estado de ánimo";
+"Quick daily check-in with optional notes" = "Registro diario rápido con notas opcionales";
+"Analytics" = "Análisis";
+"Weekday breakdown and completion rates" = "Desglose por día y tasas de completado";
+"Reminders" = "Recordatorios";
+"Local notifications, no account required" = "Notificaciones locales, sin cuenta requerida";
+"Tips" = "Consejos";
+"Swipe left on a habit to delete it" = "Desliza a la izquierda un hábito para eliminarlo";
+"Swipe right on a habit to edit it" = "Desliza a la derecha un hábito para editarlo";
+"Long-press a habit for more options" = "Mantén presionado un hábito para más opciones";
+"Tap the circle on any row to log a quick completion" = "Toca el círculo en cualquier fila para registrar un progreso rápido";
+"Long-press the Today card to log count + note" = "Mantén presionado la tarjeta de Hoy para registrar cantidad + nota";
+"Privacy" = "Privacidad";
+"All data is stored on-device" = "Todos los datos se almacenan en el dispositivo";
+"HabitGrid uses SwiftData with no iCloud sync and no network requests. Your habits never leave your device." = "HabitGrid usa SwiftData sin sincronización con iCloud ni solicitudes de red. Tus hábitos nunca abandonan tu dispositivo.";
+
+/* Onboarding */
+"Build better habits" = "Crea mejores hábitos";
+"Track any habit — daily runs, reading, hydration — and watch your streaks grow day by day." = "Registra cualquier hábito — carreras diarias, lectura, hidratación — y mira cómo crecen tus rachas día a día.";
+"See your progress at a glance" = "Mira tu progreso de un vistazo";
+"HabitGrid's GitHub-style contribution chart gives you a beautiful year-long picture of your consistency." = "El gráfico de contribución estilo GitHub de HabitGrid te da una hermosa imagen anual de tu constancia.";
+"Gentle reminders" = "Recordatorios amables";
+"Set a reminder for each habit so you never miss a day. Notifications arrive right when you need them." = "Establece un recordatorio para cada hábito para no perderte ningún día. Las notificaciones llegan justo cuando las necesitas.";
+"Get Started" = "Comenzar";
