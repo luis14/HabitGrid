@@ -19,6 +19,7 @@ A native iOS app for tracking habits, medications, and daily mood — with GitHu
 - Log exact time taken, skip, or undo a logged dose
 - Inventory tracking with low-stock alerts
 - Follow-up push notifications every 15 min (up to 2 hours) until a dose is acted on
+- Tapping a medication notification opens the app directly to the LogTaken sheet
 - Adherence rate, current streak, and contribution graph per medication
 
 **Mood**
@@ -33,8 +34,10 @@ A native iOS app for tracking habits, medications, and daily mood — with GitHu
 
 **Widgets**
 - Small: completion ring showing habits done vs. total today
-- Medium: ring + per-habit checklist (last 14 days)
-- Large / Extra-large: GitHub-style contribution grid for the top 4–6 habits (last 28 days)
+- Medium (checklist): ring + done/pending status for each of today's habits
+- Medium (grid): 2-habit contribution grid for the last 14 days
+- Large (grid): 4-habit contribution grid for the last 28 days
+- Extra-large (grid): 6-habit contribution grid for the last 28 days (iPad)
 
 **Settings**
 - Light / Dark / System theme
@@ -77,7 +80,8 @@ On first launch in **DEBUG** mode the app auto-seeds habits, medications, and mo
 HabitGrid/
 ├── App/
 │   ├── HabitGridApp.swift      @main, ModelContainer setup, onboarding gate
-│   └── ContentView.swift       TabView (Today / Habits / Meds / Stats / Settings)
+│   ├── ContentView.swift       TabView (Today / Habits / Meds / Stats / Settings)
+│   └── NotificationRouter.swift  @Observable router + UNUserNotificationCenterDelegate
 │
 ├── Models/                     SwiftData @Model classes
 │   ├── Habit.swift
@@ -151,6 +155,14 @@ iOS allows 64 pending notification requests per app.
 | `.customDays(n)` | n (max 7) |
 
 Medication follow-ups add 8 one-shot requests per pending dose (every 15 min for 2 hours). With many custom-day habits and multiple pending medication doses the cap can be reached; remaining requests are silently dropped.
+
+### Notification deep-link routing
+Tapping a medication notification navigates straight to the `LogTaken` sheet:
+
+1. `NotificationService` embeds `medicationID` (and `doseID` for follow-up reminders) in `content.userInfo` when scheduling.
+2. `AppNotificationDelegate` (`UNUserNotificationCenterDelegate`) is initialised as a **static property** of `HabitGridApp` so `UNUserNotificationCenter.current().delegate` is set before the first runloop tick — this is required for cold-launch notification taps to be delivered.
+3. On tap, the delegate writes `medicationID` to `NotificationRouter` (an `@Observable` singleton in the SwiftUI environment).
+4. `ContentView` observes the router and switches to the Today tab; `MedicationTodaySection` reacts and opens `LogTakenSheet` for the matching pending dose.
 
 ### Actor isolation and SwiftData safety
 - `NotificationService` is an `actor`; all public methods are `async`.
