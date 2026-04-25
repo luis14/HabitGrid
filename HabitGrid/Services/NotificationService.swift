@@ -1,18 +1,48 @@
 import Foundation
 import UserNotifications
 
-/// Schedules and cancels local notifications for habit reminders.
+/// Schedules and cancels local notifications for habit and medication reminders.
 ///
-/// Uses at most one `UNNotificationRequest` per habit for `.daily` and
-/// `.timesPerWeek` schedules, and one per day-of-week for `.weekdays` /
-/// `.customDays` (max 7 per habit).  With ≤10 habits this stays well inside
-/// iOS's 64-request cap.
+/// iOS caps pending notifications at 64. This service reserves 60 slots
+/// (leaving 4 as system buffer), prioritising medications over habits.
+/// When a habit's reminder would push the count over 60 the request is
+/// dropped and the name is reported to `NotificationCapBannerState`.
 actor NotificationService {
 
     static let shared = NotificationService()
     private init() {}
 
     private let center = UNUserNotificationCenter.current()
+
+    // MARK: - Budget
+
+    /// Maximum pending notification requests this app will create.
+    static let notificationBudget = 60
+
+    /// Number of pending requests a habit would consume.
+    static func requestCount(for habit: Habit) -> Int {
+        switch habit.schedule {
+        case .daily, .timesPerWeek: return 1
+        case .weekdays:             return 5
+        case .customDays(let d):    return d.count
+        }
+    }
+
+    /// Number of pending requests a medication would consume (one per dose-time × weekday combo).
+    static func requestCount(for medication: Medication) -> Int {
+        let doseCount = max(1, medication.dosesPerDay.count)
+        switch medication.schedule {
+        case .daily:            return doseCount
+        case .weekdays:         return doseCount * 5
+        case .customDays(let d):return doseCount * d.count
+        case .asNeeded:         return 0
+        }
+    }
+
+    /// Pure function — `true` when adding `newSlots` to `pending` would exceed the budget.
+    static func wouldExceedBudget(pending: Int, newSlots: Int) -> Bool {
+        pending + newSlots > notificationBudget
+    }
 
     // MARK: - Permission
 
@@ -34,7 +64,9 @@ actor NotificationService {
 
     // MARK: - Schedule
 
-    /// Schedules notification(s) for `habit`.  Replaces any existing requests.
+    /// Schedules notification(s) for `habit`. Replaces any existing requests.
+    /// Skips scheduling and reports to `NotificationCapBannerState` when the
+    /// 60-request budget would be exceeded.
     func schedule(for habit: Habit) async {
         guard let reminderTime = habit.reminderTime, !habit.isArchived else {
             cancel(for: habit)
@@ -42,7 +74,16 @@ actor NotificationService {
         }
         guard await isAuthorised else { return }
 
-        cancel(for: habit)   // remove stale requests first
+        cancel(for: habit)   // remove stale requests first (lowers pending count)
+
+        let slotsNeeded = Self.requestCount(for: habit)
+        let currentPending = await center.pendingNotificationRequests().count
+        if Self.wouldExceedBudget(pending: currentPending, newSlots: slotsNeeded) {
+            await MainActor.run {
+                NotificationCapBannerState.shared.report(droppedNames: [habit.name])
+            }
+            return
+        }
 
         let cal = Calendar.current
         let hourMinute = cal.dateComponents([.hour, .minute], from: reminderTime)
@@ -57,7 +98,7 @@ actor NotificationService {
             await add(id: notifID(habit), content: content, components: hourMinute)
 
         case .weekdays:
-            for wd in 2...6 {   // Calendar weekdays 2 (Mon) … 6 (Fri)
+            for wd in 2...6 {
                 var comps = hourMinute
                 comps.weekday = wd
                 await add(id: notifID(habit, suffix: wd), content: content, components: comps)
@@ -66,7 +107,7 @@ actor NotificationService {
         case .customDays(let days):
             for day in days {
                 var comps = hourMinute
-                comps.weekday = day + 1   // 0-based → Calendar 1-based
+                comps.weekday = day + 1
                 await add(id: notifID(habit, suffix: day), content: content, components: comps)
             }
         }
@@ -79,9 +120,50 @@ actor NotificationService {
     }
 
     /// Re-schedules reminders for all non-archived habits.
+    /// Medications are scheduled first (higher priority); habits fill the remaining budget.
     func rescheduleAll(habits: [Habit]) async {
+        for habit in habits { await schedule(for: habit) }
+    }
+
+    /// Combined reschedule that enforces priority: medications consume budget first,
+    /// habits fill whatever is left. Dropped names are reported as a single banner.
+    func rescheduleAll(habits: [Habit], medications: [Medication]) async {
+        guard await isAuthorised else { return }
+
+        // Cancel everything to get an accurate pending count.
+        for habit in habits { cancel(for: habit) }
+        for med in medications { cancel(for: med) }
+
+        var pending = await center.pendingNotificationRequests().count
+        var dropped: [String] = []
+
+        // Medications first.
+        for med in medications {
+            let slots = Self.requestCount(for: med)
+            if Self.wouldExceedBudget(pending: pending, newSlots: slots) {
+                dropped.append(med.name)
+            } else {
+                await scheduleNoCapCheck(for: med)
+                pending += slots
+            }
+        }
+
+        // Habits second.
         for habit in habits {
-            await schedule(for: habit)
+            guard habit.reminderTime != nil, !habit.isArchived else { continue }
+            let slots = Self.requestCount(for: habit)
+            if Self.wouldExceedBudget(pending: pending, newSlots: slots) {
+                dropped.append(habit.name)
+            } else {
+                await scheduleNoCapCheck(for: habit)
+                pending += slots
+            }
+        }
+
+        if !dropped.isEmpty {
+            await MainActor.run {
+                NotificationCapBannerState.shared.report(droppedNames: dropped)
+            }
         }
     }
 
@@ -215,6 +297,86 @@ actor NotificationService {
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
         try? await center.add(request)
+    }
+
+    // MARK: - Private (no-cap-check scheduling)
+
+    /// Schedules notifications for a habit without re-checking the budget.
+    /// Only call from `rescheduleAll(habits:medications:)` which tracks budget itself.
+    private func scheduleNoCapCheck(for habit: Habit) async {
+        guard let reminderTime = habit.reminderTime, !habit.isArchived else { return }
+
+        let cal = Calendar.current
+        let hourMinute = cal.dateComponents([.hour, .minute], from: reminderTime)
+
+        let content = UNMutableNotificationContent()
+        content.title = "\(habit.emoji) \(habit.name)"
+        content.body  = "Time to check in on your habit."
+        content.sound = .default
+
+        switch habit.schedule {
+        case .daily, .timesPerWeek:
+            await add(id: notifID(habit), content: content, components: hourMinute)
+
+        case .weekdays:
+            for wd in 2...6 {
+                var comps = hourMinute
+                comps.weekday = wd
+                await add(id: notifID(habit, suffix: wd), content: content, components: comps)
+            }
+
+        case .customDays(let days):
+            for day in days {
+                var comps = hourMinute
+                comps.weekday = day + 1
+                await add(id: notifID(habit, suffix: day), content: content, components: comps)
+            }
+        }
+    }
+
+    /// Schedules notifications for a medication without re-checking the budget.
+    /// Only call from `rescheduleAll(habits:medications:)` which tracks budget itself.
+    private func scheduleNoCapCheck(for medication: Medication) async {
+        guard !medication.isArchived else { return }
+        if case .asNeeded = medication.schedule { return }
+        guard !medication.dosesPerDay.isEmpty else { return }
+
+        let cal = Calendar.current
+        let desc = medication.strength.isEmpty
+            ? medication.form.displayName.lowercased()
+            : "\(medication.strength) \(medication.form.displayName.lowercased())"
+
+        for (i, doseTime) in medication.dosesPerDay.enumerated() {
+            let hm = cal.dateComponents([.hour, .minute], from: doseTime)
+
+            let content = UNMutableNotificationContent()
+            content.title = medication.name
+            content.body  = "Time to take your \(desc)."
+            content.sound = .default
+            if #available(iOS 15.0, *) {
+                content.interruptionLevel = .timeSensitive
+            }
+
+            switch medication.schedule {
+            case .daily:
+                await add(id: medID(medication, dose: i, slot: 0),
+                          content: content, components: hm)
+            case .weekdays:
+                for wd in 2...6 {
+                    var c = hm; c.weekday = wd
+                    await add(id: medID(medication, dose: i, slot: 0, suffix: wd),
+                              content: content, components: c)
+                }
+            case .customDays(let days):
+                for day in days {
+                    var c = hm; c.weekday = day + 1
+                    await add(id: medID(medication, dose: i, slot: 0, suffix: day),
+                              content: content, components: c)
+                }
+            case .asNeeded:
+                break
+            }
+        }
     }
 
     // MARK: - Private

@@ -7,28 +7,32 @@ struct ContentView: View {
     @AppStorage("weekStartDay") private var weekStartDay: Int = 0
 
     var body: some View {
-        TabView {
-            TodayView()
-                .tabItem { Label("Today", systemImage: "checkmark.circle.fill") }
-                .tag(0)
+        ZStack(alignment: .top) {
+            TabView {
+                TodayView()
+                    .tabItem { Label("Today", systemImage: "checkmark.circle.fill") }
+                    .tag(0)
 
-            HabitsListView()
-                .tabItem { Label("Habits", systemImage: "list.bullet") }
-                .tag(1)
+                HabitsListView()
+                    .tabItem { Label("Habits", systemImage: "list.bullet") }
+                    .tag(1)
 
-            MedsListView()
-                .tabItem { Label("Meds", systemImage: "pill.fill") }
-                .tag(2)
+                MedsListView()
+                    .tabItem { Label("Meds", systemImage: "pill.fill") }
+                    .tag(2)
 
-            StatsView()
-                .tabItem { Label("Stats", systemImage: "chart.bar.fill") }
-                .tag(3)
+                StatsView()
+                    .tabItem { Label("Stats", systemImage: "chart.bar.fill") }
+                    .tag(3)
 
-            SettingsView()
-                .tabItem { Label("Settings", systemImage: "gearshape.fill") }
-                .tag(4)
+                SettingsView()
+                    .tabItem { Label("Settings", systemImage: "gearshape.fill") }
+                    .tag(4)
+            }
+            .tint(.accentColor)
+
+            NotificationCapBanner()
         }
-        .tint(.accentColor)
     }
 }
 
