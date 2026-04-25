@@ -53,6 +53,13 @@ targets:
         ITSAppUsesNonExemptEncryption: false
     entitlements:
       path: HabitGrid/HabitGrid.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.habitgrid.shared
+        com.apple.developer.icloud-services:
+          - CloudKit
+        com.apple.developer.icloud-container-identifiers:
+          - iCloud.com.habitgrid.shared
     dependencies:
       - target: HabitGridWidget
         embed: true
@@ -107,6 +114,7 @@ targets:
         IPHONEOS_DEPLOYMENT_TARGET: "17.0"
         SKIP_INSTALL: YES
         CODE_SIGN_ENTITLEMENTS: HabitGridWidget/HabitGridWidget.entitlements
+        PRODUCT_BUNDLE_IDENTIFIER: com.habitgrid.HabitGrid.HabitGridWidget
 
   HabitGridTests:
     type: bundle.unit-test
