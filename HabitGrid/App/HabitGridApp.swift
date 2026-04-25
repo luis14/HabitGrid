@@ -57,17 +57,25 @@ struct HabitGridApp: App {
     }
 
     private static func wipeStore(config: ModelConfiguration) {
-        // Try App Group location first, then Application Support.
-        let candidates: [URL?] = [
-            FileManager.default.containerURL(
-                forSecurityApplicationGroupIdentifier: "group.com.habitgrid.shared"
-            ),
-            FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
-        ]
-        for dir in candidates.compactMap({ $0 }) {
-            guard let files = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil) else { continue }
-            files.filter { $0.pathExtension == "store" || $0.lastPathComponent.contains(".store") }
-                 .forEach { try? FileManager.default.removeItem(at: $0) }
+        let fm = FileManager.default
+        // Search both the App Group container and the app's own Application Support.
+        let roots: [URL] = [
+            fm.containerURL(forSecurityApplicationGroupIdentifier: "group.com.habitgrid.shared"),
+            fm.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
+        ].compactMap { $0 }
+
+        for root in roots {
+            guard let enumerator = fm.enumerator(
+                at: root,
+                includingPropertiesForKeys: [.isRegularFileKey],
+                options: [.skipsHiddenFiles]
+            ) else { continue }
+            for case let url as URL in enumerator {
+                let name = url.lastPathComponent
+                if url.pathExtension == "store" || name.contains(".store") {
+                    try? fm.removeItem(at: url)
+                }
+            }
         }
     }
 
