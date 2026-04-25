@@ -36,10 +36,12 @@ struct WidgetSnapshot {
 
     static let placeholder: WidgetSnapshot = {
         let rows: [HabitGridRow] = [
-            ("Morning Run", "figure.run",  "34C759"),
-            ("Meditation",  "figure.yoga", "AF52DE"),
-            ("Read",        "book.fill",   "007AFF"),
-            ("Water",       "drop.fill",   "5AC8FA"),
+            ("Morning Run",      "figure.run",                        "34C759"),
+            ("Meditation",       "figure.yoga",                       "AF52DE"),
+            ("Read",             "book.fill",                         "007AFF"),
+            ("Water",            "drop.fill",                         "5AC8FA"),
+            ("Strength",         "figure.strengthtraining.traditional","FF9500"),
+            ("Journaling",       "pencil",                            "FF2D55"),
         ].map { name, emoji, hex in
             HabitGridRow(id: UUID(), name: name, emoji: emoji, colorHex: hex,
                          completed: (0..<28).map { $0 % 3 != 2 })
@@ -132,8 +134,8 @@ enum WidgetDataProvider {
             )
         }
 
-        // Build 28-day grids for top 4 active habits.
-        let gridHabits = Array(habits.prefix(4))
+        // Build 28-day grids for top 6 habits (extra-large widget shows up to 6).
+        let gridHabits = Array(habits.prefix(6))
         guard let gridStart = calendar.date(byAdding: .day, value: -27, to: today) else {
             return WidgetSnapshot(completedToday: rows.filter(\.isComplete).count,
                                   totalToday: dueHabits.count,

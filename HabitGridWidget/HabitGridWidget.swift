@@ -146,19 +146,35 @@ private struct MediumWidgetView: View {
     }
 }
 
-// MARK: - Large widget view (28-day contribution grid)
+// MARK: - Grid widget view (multi-size contribution grid)
 
 private struct LargeWidgetView: View {
     let entry: HabitEntry
+    @Environment(\.widgetFamily) private var widgetFamily
 
-    private let columns = 28
     private let cellSize: CGFloat = 9
     private let cellSpacing: CGFloat = 2
 
+    // How many habits and days to render per size.
+    private var habitCount: Int {
+        switch widgetFamily {
+        case .systemMedium:     return 2
+        case .systemExtraLarge: return 6
+        default:                return 4  // .systemLarge
+        }
+    }
+
+    // Medium shows the most recent 14 days; all other sizes show 28.
+    private var dayCount: Int { widgetFamily == .systemMedium ? 14 : 28 }
+
+    // First index into the 28-element completed array to render.
+    private var dayOffset: Int { 28 - dayCount }
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        let grids = Array(entry.snapshot.habitGrids.prefix(habitCount))
+        VStack(alignment: .leading, spacing: widgetFamily == .systemMedium ? 6 : 10) {
             header
-            if entry.snapshot.habitGrids.isEmpty {
+            if grids.isEmpty {
                 Spacer()
                 Text("No habits yet")
                     .font(.caption)
@@ -166,7 +182,7 @@ private struct LargeWidgetView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                 Spacer()
             } else {
-                ForEach(entry.snapshot.habitGrids) { row in
+                ForEach(grids) { row in
                     habitRow(row)
                 }
                 Spacer(minLength: 0)
@@ -184,7 +200,7 @@ private struct LargeWidgetView: View {
                 Text("HabitGrid")
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.secondary)
-                Text("Last 28 days")
+                Text("Last \(dayCount) days")
                     .font(.caption2)
                     .foregroundStyle(.tertiary)
             }
@@ -208,7 +224,7 @@ private struct LargeWidgetView: View {
                 .foregroundStyle(Color(hex: row.colorHex))
 
             HStack(spacing: cellSpacing) {
-                ForEach(0..<28, id: \.self) { i in
+                ForEach(dayOffset..<28, id: \.self) { i in
                     RoundedRectangle(cornerRadius: 2)
                         .fill(row.completed[i]
                               ? Color(hex: row.colorHex)
@@ -222,12 +238,11 @@ private struct LargeWidgetView: View {
     private var weekdayLabels: some View {
         let cal = Calendar.current
         let today = cal.startOfDay(for: Date())
-        let startDay = cal.date(byAdding: .day, value: -27, to: today) ?? today
-        // weekday component: 1=Sun…7=Sat → 0-based Sunday = 0
+        let startDay = cal.date(byAdding: .day, value: -(dayCount - 1), to: today) ?? today
         let startWeekday = cal.component(.weekday, from: startDay) - 1
         return HStack(spacing: cellSpacing) {
             Color.clear.frame(width: 24)   // offset for emoji column
-            ForEach(0..<28, id: \.self) { i in
+            ForEach(0..<dayCount, id: \.self) { i in
                 let weekday = (startWeekday + i) % 7
                 Group {
                     if weekday == 0 {
@@ -277,8 +292,8 @@ struct HabitGridLargeWidget: Widget {
             LargeWidgetView(entry: entry)
         }
         .configurationDisplayName("HabitGrid — Grid")
-        .description("28-day contribution grid for your top habits.")
-        .supportedFamilies([.systemLarge])
+        .description("Contribution grid for your top habits. Resize to show 14 or 28 days.")
+        .supportedFamilies([.systemMedium, .systemLarge, .systemExtraLarge])
     }
 }
 
