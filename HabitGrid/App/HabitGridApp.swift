@@ -13,23 +13,31 @@ struct HabitGridApp: App {
             Habit.self, HabitCompletion.self, MoodEntry.self,
             Medication.self, MedicationDose.self
         ])
-        // Use the App Group container so the widget extension can read the same store.
-        let config = appGroupConfig(schema: schema) ?? ModelConfiguration(schema: schema)
-        do {
-            return try ModelContainer(for: schema, configurations: config)
-        } catch {
-            #if DEBUG
-            // Schema changed — wipe dev store and start fresh.
-            wipeStore(config: config)
-            do {
-                return try ModelContainer(for: schema, configurations: config)
-            } catch {
-                fatalError("Failed to create ModelContainer after wipe: \(error)")
+        // Preferred: App Group container (shared with widget).
+        if let groupConfig = appGroupConfig(schema: schema) {
+            if let c = try? ModelContainer(for: schema, configurations: groupConfig) {
+                return c
             }
-            #else
-            fatalError("Failed to create ModelContainer: \(error)")
+            // Schema mismatch — wipe the App Group store and retry.
+            #if DEBUG
+            wipeStore()
+            if let c = try? ModelContainer(for: schema, configurations: groupConfig) {
+                return c
+            }
             #endif
         }
+        // Fallback: plain in-app store (widget won't share data, but app stays alive).
+        let localConfig = ModelConfiguration(schema: schema)
+        if let c = try? ModelContainer(for: schema, configurations: localConfig) {
+            return c
+        }
+        #if DEBUG
+        wipeStore()
+        if let c = try? ModelContainer(for: schema, configurations: localConfig) {
+            return c
+        }
+        #endif
+        fatalError("Cannot create ModelContainer — all fallbacks exhausted.")
     }()
 
     /// Builds a ModelConfiguration that stores the SQLite file in the shared App Group
@@ -56,9 +64,8 @@ struct HabitGridApp: App {
         )
     }
 
-    private static func wipeStore(config: ModelConfiguration) {
+    private static func wipeStore() {
         let fm = FileManager.default
-        // Search both the App Group container and the app's own Application Support.
         let roots: [URL] = [
             fm.containerURL(forSecurityApplicationGroupIdentifier: "group.com.habitgrid.shared"),
             fm.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
