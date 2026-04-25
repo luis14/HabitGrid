@@ -79,8 +79,9 @@ actor NotificationService {
         let slotsNeeded = Self.requestCount(for: habit)
         let currentPending = await center.pendingNotificationRequests().count
         if Self.wouldExceedBudget(pending: currentPending, newSlots: slotsNeeded) {
+            let name = habit.name
             await MainActor.run {
-                NotificationCapBannerState.shared.report(droppedNames: [habit.name])
+                NotificationCapBannerState.shared.report(droppedNames: [name])
             }
             return
         }
@@ -161,8 +162,9 @@ actor NotificationService {
         }
 
         if !dropped.isEmpty {
+            let droppedCopy = dropped
             await MainActor.run {
-                NotificationCapBannerState.shared.report(droppedNames: dropped)
+                NotificationCapBannerState.shared.report(droppedNames: droppedCopy)
             }
         }
     }
