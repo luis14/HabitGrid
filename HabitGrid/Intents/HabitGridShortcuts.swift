@@ -6,9 +6,9 @@ struct HabitGridShortcuts: AppShortcutsProvider {
         AppShortcut(
             intent: LogHabitIntent(),
             phrases: [
-                "Log \(\.$habitName) in \(.applicationName)",
-                "Mark \(\.$habitName) done in \(.applicationName)",
-                "Complete \(\.$habitName) in \(.applicationName)"
+                "Log a habit in \(.applicationName)",
+                "Mark a habit done in \(.applicationName)",
+                "Complete a habit in \(.applicationName)"
             ],
             shortTitle: "Log Habit",
             systemImageName: "checkmark.circle.fill"
@@ -17,9 +17,9 @@ struct HabitGridShortcuts: AppShortcutsProvider {
         AppShortcut(
             intent: MarkMedicationTakenIntent(),
             phrases: [
-                "Take \(\.$medicationName) in \(.applicationName)",
-                "Mark \(\.$medicationName) taken in \(.applicationName)",
-                "Log \(\.$medicationName) dose in \(.applicationName)"
+                "Take a medication in \(.applicationName)",
+                "Mark medication taken in \(.applicationName)",
+                "Log a dose in \(.applicationName)"
             ],
             shortTitle: "Mark Medication Taken",
             systemImageName: "pill.fill"
