@@ -304,6 +304,7 @@ The app ships with English (`en`) and Spanish (`es`) string tables in `HabitGrid
 ## Known limitations
 
 - **Notification cap:** With many custom-day habits and multiple pending medication doses, the iOS 64-request limit can be reached. Remaining requests are silently dropped.
+- **Widget data sharing requires a paid developer account:** The widget reads live data through a shared App Group (`group.com.habitgrid.shared`). This capability is not available with a Personal Team (free) account — without it the widget falls back to placeholder data. To enable it, add the App Groups capability in Signing & Capabilities, register the group ID in your Apple Developer portal, and re-add `com.apple.security.application-groups` to both entitlements files.
 - **iCloud sync is opt-in:** A toggle in Settings stores the preference, but the sync only takes effect after adding an active iCloud/CloudKit entitlement and restarting the app. Without an entitlement the app always uses a local SwiftData store.
 - **Portrait only on iPhone:** The app is locked to portrait on iPhone. iPad supports all orientations.
 - **No Apple Watch companion:** Habit and medication logging is iPhone-only.

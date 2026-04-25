@@ -53,9 +53,6 @@ targets:
         ITSAppUsesNonExemptEncryption: false
     entitlements:
       path: HabitGrid/HabitGrid.entitlements
-      properties:
-        com.apple.security.application-groups:
-          - group.com.habitgrid.shared
     dependencies:
       - target: HabitGridWidget
         embed: true
@@ -106,9 +103,6 @@ targets:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     entitlements:
       path: HabitGridWidget/HabitGridWidget.entitlements
-      properties:
-        com.apple.security.application-groups:
-          - group.com.habitgrid.shared
     settings:
       base:
         SWIFT_VERSION: "5.9"
