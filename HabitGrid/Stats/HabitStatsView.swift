@@ -43,6 +43,7 @@ struct HabitStatsView: View {
                     contributionSection
                     statsCardsSection
                     weekdaySection
+                    MoodHabitCorrelationCard(habit: habit)
                 }
             }
             .padding(.horizontal, 16)
