@@ -28,7 +28,7 @@
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSUserNotificationsUsageDescription</key>
-	<string>HabitGrid uses notifications to remind you about your habits.</string>
+	<string>HabitGrid uses notifications to remind you about your habits and medications.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

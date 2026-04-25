@@ -146,6 +146,99 @@ private struct MediumWidgetView: View {
     }
 }
 
+// MARK: - Large widget view (28-day contribution grid)
+
+private struct LargeWidgetView: View {
+    let entry: HabitEntry
+
+    private let columns = 28
+    private let cellSize: CGFloat = 9
+    private let cellSpacing: CGFloat = 2
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            header
+            if entry.snapshot.habitGrids.isEmpty {
+                Spacer()
+                Text("No habits yet")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                Spacer()
+            } else {
+                ForEach(entry.snapshot.habitGrids) { row in
+                    habitRow(row)
+                }
+                Spacer(minLength: 0)
+                weekdayLabels
+            }
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .containerBackground(.background, for: .widget)
+    }
+
+    private var header: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 2) {
+                Text("HabitGrid")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.secondary)
+                Text("Last 28 days")
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
+            }
+            Spacer()
+            VStack(alignment: .trailing, spacing: 2) {
+                Text("\(entry.snapshot.completedToday)/\(entry.snapshot.totalToday)")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(.primary)
+                Text("today")
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
+            }
+        }
+    }
+
+    private func habitRow(_ row: WidgetSnapshot.HabitGridRow) -> some View {
+        HStack(spacing: 6) {
+            Text(row.emoji)
+                .font(.system(size: 13))
+                .frame(width: 18)
+
+            HStack(spacing: cellSpacing) {
+                ForEach(0..<28, id: \.self) { i in
+                    RoundedRectangle(cornerRadius: 2)
+                        .fill(row.completed[i]
+                              ? Color(hex: row.colorHex)
+                              : Color(hex: row.colorHex).opacity(0.12))
+                        .frame(width: cellSize, height: cellSize)
+                }
+            }
+        }
+    }
+
+    private var weekdayLabels: some View {
+        HStack(spacing: cellSpacing) {
+            // offset for emoji column
+            Color.clear.frame(width: 24)
+            ForEach(0..<28, id: \.self) { i in
+                let weekday = (i) % 7
+                Group {
+                    if weekday == 0 {
+                        Text("S")
+                            .font(.system(size: 6))
+                            .foregroundStyle(.tertiary)
+                    } else {
+                        Color.clear
+                    }
+                }
+                .frame(width: cellSize)
+            }
+        }
+    }
+}
+
 // MARK: - Widget definitions
 
 struct HabitGridSmallWidget: Widget {
@@ -172,6 +265,18 @@ struct HabitGridMediumWidget: Widget {
     }
 }
 
+struct HabitGridLargeWidget: Widget {
+    let kind = "HabitGridLargeWidget"
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: kind, provider: HabitProvider()) { entry in
+            LargeWidgetView(entry: entry)
+        }
+        .configurationDisplayName("HabitGrid — Grid")
+        .description("28-day contribution grid for your top habits.")
+        .supportedFamilies([.systemLarge])
+    }
+}
+
 // MARK: - Widget bundle
 
 @main
@@ -179,5 +284,6 @@ struct HabitGridWidgetBundle: WidgetBundle {
     var body: some Widget {
         HabitGridSmallWidget()
         HabitGridMediumWidget()
+        HabitGridLargeWidget()
     }
 }

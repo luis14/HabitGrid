@@ -289,7 +289,9 @@ extension MockData {
 }
 
 private extension Int {
-    func clamped(to range: ClosedRange<Int>) -> Int { min(max(self, range.lowerBound), range.upperBound) }
+    func clamped(to range: ClosedRange<Int>) -> Int {
+        Swift.min(Swift.max(self, range.lowerBound), range.upperBound)
+    }
 }
 
 // MARK: - Deterministic seeded PRNG (xorshift64)

@@ -166,7 +166,7 @@ schemes:
     run:
       config: Debug
       environmentVariables:
-        _XCWidgetKind: HabitGridSmallWidget
+        _XCWidgetKind: HabitGridLargeWidget
     profile:
       config: Release
     analyze:

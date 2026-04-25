@@ -9,6 +9,7 @@ struct WidgetSnapshot {
     let completedToday: Int
     let totalToday: Int
     let topHabits: [HabitRow]
+    let habitGrids: [HabitGridRow]
     let date: Date
 
     struct HabitRow: Identifiable {
@@ -18,23 +19,45 @@ struct WidgetSnapshot {
         let isComplete: Bool
     }
 
+    /// One row in the large grid widget — 28 days of completion data.
+    struct HabitGridRow: Identifiable {
+        let id: UUID
+        let name: String
+        let emoji: String
+        let colorHex: String
+        /// True for each of the last 28 days (index 0 = 27 days ago, index 27 = today).
+        let completed: [Bool]
+    }
+
     var progress: Double {
         guard totalToday > 0 else { return 0 }
         return Double(completedToday) / Double(totalToday)
     }
 
-    static let placeholder = WidgetSnapshot(
-        completedToday: 3,
-        totalToday: 7,
-        topHabits: [
-            HabitRow(id: UUID(), name: "Morning Run",  colorHex: "34C759", isComplete: true),
-            HabitRow(id: UUID(), name: "Meditation",   colorHex: "007AFF", isComplete: true),
-            HabitRow(id: UUID(), name: "Read 30 min",  colorHex: "FF9500", isComplete: true),
-            HabitRow(id: UUID(), name: "Drink Water",  colorHex: "5AC8FA", isComplete: false),
-            HabitRow(id: UUID(), name: "Stretch",      colorHex: "AF52DE", isComplete: false),
-        ],
-        date: .now
-    )
+    static let placeholder: WidgetSnapshot = {
+        let rows: [HabitGridRow] = [
+            ("Morning Run", "figure.run",  "34C759"),
+            ("Meditation",  "figure.yoga", "AF52DE"),
+            ("Read",        "book.fill",   "007AFF"),
+            ("Water",       "drop.fill",   "5AC8FA"),
+        ].map { name, emoji, hex in
+            HabitGridRow(id: UUID(), name: name, emoji: emoji, colorHex: hex,
+                         completed: (0..<28).map { $0 % 3 != 2 })
+        }
+        return WidgetSnapshot(
+            completedToday: 3,
+            totalToday: 7,
+            topHabits: [
+                HabitRow(id: UUID(), name: "Morning Run",  colorHex: "34C759", isComplete: true),
+                HabitRow(id: UUID(), name: "Meditation",   colorHex: "007AFF", isComplete: true),
+                HabitRow(id: UUID(), name: "Read 30 min",  colorHex: "FF9500", isComplete: true),
+                HabitRow(id: UUID(), name: "Drink Water",  colorHex: "5AC8FA", isComplete: false),
+                HabitRow(id: UUID(), name: "Stretch",      colorHex: "AF52DE", isComplete: false),
+            ],
+            habitGrids: rows,
+            date: .now
+        )
+    }()
 }
 
 // MARK: - Provider
@@ -101,10 +124,41 @@ enum WidgetDataProvider {
             )
         }
 
+        // Build 28-day grids for top 4 active habits.
+        let gridHabits = Array(habits.prefix(4))
+        guard let gridStart = calendar.date(byAdding: .day, value: -27, to: today) else {
+            return WidgetSnapshot(completedToday: rows.filter(\.isComplete).count,
+                                  totalToday: dueHabits.count, topHabits: Array(rows.prefix(5)),
+                                  habitGrids: [], date: today)
+        }
+
+        var allCompDesc = FetchDescriptor<HabitCompletion>(
+            predicate: #Predicate { $0.date >= gridStart && $0.date <= today }
+        )
+        allCompDesc.fetchLimit = 500
+        let allComps = (try? context.fetch(allCompDesc)) ?? []
+        let compSet = Set(allComps.filter { $0.count > 0 }.map { "\($0.habitID)-\($0.date)" })
+
+        let habitGrids = gridHabits.map { habit in
+            let days: [Bool] = (0..<28).map { offset in
+                guard let day = calendar.date(byAdding: .day, value: offset - 27, to: today) else { return false }
+                let key = "\(habit.id)-\(calendar.startOfDay(for: day))"
+                return compSet.contains(key)
+            }
+            return WidgetSnapshot.HabitGridRow(
+                id: habit.id,
+                name: habit.name,
+                emoji: habit.emoji,
+                colorHex: habit.colorHex,
+                completed: days
+            )
+        }
+
         return WidgetSnapshot(
             completedToday: rows.filter(\.isComplete).count,
             totalToday: dueHabits.count,
             topHabits: Array(rows.prefix(5)),
+            habitGrids: habitGrids,
             date: today
         )
     }
