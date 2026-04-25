@@ -56,10 +56,6 @@ targets:
       properties:
         com.apple.security.application-groups:
           - group.com.habitgrid.shared
-        com.apple.developer.icloud-services:
-          - CloudKit
-        com.apple.developer.icloud-container-identifiers:
-          - iCloud.com.habitgrid.shared
     dependencies:
       - target: HabitGridWidget
         embed: true
