@@ -22,6 +22,14 @@ struct TodayView: View {
             .navigationBarTitleDisplayMode(.large)
             .toolbar { toolbarItems }
         }
+        .alert("Could not save", isPresented: Binding(
+            get: { viewModel?.error != nil },
+            set: { if !$0 { viewModel?.error = nil } }
+        )) {
+            Button("OK", role: .cancel) { viewModel?.error = nil }
+        } message: {
+            Text(viewModel?.error ?? "")
+        }
         // Sheet lives outside NavigationStack on a stable single-view anchor
         .sheet(item: $sheet) { item in
             CompletionSheet(

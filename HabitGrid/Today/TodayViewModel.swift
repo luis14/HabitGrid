@@ -12,7 +12,7 @@ final class TodayViewModel {
 
     private(set) var todayCompletions: [UUID: Int] = [:]
     private(set) var streaks: [UUID: Int] = [:]
-    private(set) var error: String? = nil
+    var error: String? = nil
 
     init(store: HabitStore) {
         self.store = store

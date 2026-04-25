@@ -49,7 +49,10 @@ private struct HabitForm {
         }
     }
 
-    var isValid: Bool { !name.trimmingCharacters(in: .whitespaces).isEmpty }
+    var isValid: Bool {
+        !name.trimmingCharacters(in: .whitespaces).isEmpty &&
+        (scheduleType != .custom || !customDays.isEmpty)
+    }
 }
 
 // MARK: - SF Symbol picker options

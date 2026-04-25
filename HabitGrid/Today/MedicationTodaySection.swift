@@ -102,6 +102,10 @@ struct MedicationTodaySection: View {
     /// that medication and open the LogTakenSheet automatically.
     private func openPendingDose() {
         guard let medID = router.pendingMedicationID else { return }
+        // Refresh before searching so we have the latest dose statuses (the
+        // notification may arrive while this section was already on screen and
+        // pairs haven't been updated since the last onAppear).
+        refresh()
         if let match = pairs.first(where: { $0.med.id == medID && $0.dose.status == .pending }) {
             logEntry = match
         }
@@ -229,6 +233,7 @@ private struct DoseCard: View {
 #Preview {
     MedicationTodaySection()
         .environment(MedicationStore(context: MockData.previewContainer.mainContext))
+        .environment(NotificationRouter())
         .modelContainer(MockData.previewContainer)
         .padding()
 }

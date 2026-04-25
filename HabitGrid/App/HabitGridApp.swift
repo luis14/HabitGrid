@@ -9,7 +9,20 @@ struct HabitGridApp: App {
     @AppStorage("hasOnboarded")  private var hasOnboarded  = false
     @AppStorage("themeOverride") private var themeOverride = "system"
 
-    @State private var router = NotificationRouter()
+    // Static so the delegate is alive before any SwiftUI view is created and
+    // UNUserNotificationCenter.delegate is set before the first runloop tick.
+    // This guarantees cold-launch notification taps are delivered to the delegate.
+    private static let router = NotificationRouter()
+    private static let notifDelegate: AppNotificationDelegate = {
+        let d = AppNotificationDelegate(router: HabitGridApp.router)
+        UNUserNotificationCenter.current().delegate = d
+        return d
+    }()
+
+    init() {
+        // Force static initializer to run before the scene connects.
+        _ = Self.notifDelegate
+    }
 
     private static let container: ModelContainer = {
         let schema = Schema([
@@ -95,7 +108,7 @@ struct HabitGridApp: App {
         WindowGroup {
             AppRootView(hasOnboarded: $hasOnboarded)
                 .preferredColorScheme(colorScheme)
-                .environment(router)
+                .environment(Self.router)
         }
         .modelContainer(Self.container)
     }
@@ -117,10 +130,8 @@ struct AppRootView: View {
 
     @Binding var hasOnboarded: Bool
     @Environment(\.modelContext) private var modelContext
-    @Environment(NotificationRouter.self) private var router
     @State private var store: HabitStore?
     @State private var medStore: MedicationStore?
-    @State private var notifDelegate: AppNotificationDelegate?
 
     var body: some View {
         Group {
@@ -140,11 +151,6 @@ struct AppRootView: View {
             }
         }
         .onAppear {
-            if notifDelegate == nil {
-                let d = AppNotificationDelegate(router: router)
-                notifDelegate = d
-                UNUserNotificationCenter.current().delegate = d
-            }
             guard store == nil else { return }
             let s  = HabitStore(context: modelContext)
             let ms = MedicationStore(context: modelContext)

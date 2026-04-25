@@ -46,6 +46,7 @@ struct ContentView: View {
     ContentView()
         .environment(HabitStore(context: MockData.previewContainer.mainContext))
         .environment(MedicationStore(context: MockData.previewContainer.mainContext))
+        .environment(NotificationRouter())
         .modelContainer(MockData.previewContainer)
 }
 #endif
