@@ -141,3 +141,36 @@ targets:
       base:
         SWIFT_VERSION: "5.9"
         IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+
+schemes:
+  HabitGrid:
+    build:
+      targets:
+        HabitGrid: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - HabitGridTests
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+
+  HabitGridWidget:
+    build:
+      targets:
+        HabitGridWidget: all
+    run:
+      config: Debug
+      environmentVariables:
+        _XCWidgetKind: HabitGridSmallWidget
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
