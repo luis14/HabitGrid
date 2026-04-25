@@ -19,6 +19,7 @@ A native iOS app for tracking habits, medications, and daily mood — with GitHu
 - Log exact time taken, skip, or undo a logged dose
 - Inventory tracking with low-stock alerts
 - Follow-up push notifications every 15 min (up to 2 hours) until a dose is acted on
+- Tapping a medication notification opens the app directly to the LogTaken sheet
 - Adherence rate, current streak, and contribution graph per medication
 
 **Mood**
@@ -31,6 +32,13 @@ A native iOS app for tracking habits, medications, and daily mood — with GitHu
 - Per-habit stats: streaks, 30/90/365-day completion rate, weekday breakdown, bar chart
 - Per-medication stats: adherence rate, streak, heatmap
 
+**Widgets**
+- Small: completion ring showing habits done vs. total today
+- Medium (checklist): ring + done/pending status for each of today's habits
+- Medium (grid): 2-habit contribution grid for the last 14 days
+- Large (grid): 4-habit contribution grid for the last 28 days
+- Extra-large (grid): 6-habit contribution grid for the last 28 days (iPad)
+
 **Settings**
 - Light / Dark / System theme
 - Week start day (Sunday or Monday)
@@ -42,10 +50,10 @@ A native iOS app for tracking habits, medications, and daily mood — with GitHu
 
 | Tool | Version |
 |------|---------|
-| Xcode | 15.4+ |
+| Xcode | 16.4+ |
 | iOS deployment target | 17.0 |
-| macOS build machine | 14 (Sonoma)+ |
-| Swift | 5.9 |
+| macOS build machine | 15 (Sequoia)+ |
+| Swift | 6.0 |
 
 ## Getting started
 
@@ -72,7 +80,8 @@ On first launch in **DEBUG** mode the app auto-seeds habits, medications, and mo
 HabitGrid/
 ├── App/
 │   ├── HabitGridApp.swift      @main, ModelContainer setup, onboarding gate
-│   └── ContentView.swift       TabView (Today / Habits / Meds / Stats / Settings)
+│   ├── ContentView.swift       TabView (Today / Habits / Meds / Stats / Settings)
+│   └── NotificationRouter.swift  @Observable router + UNUserNotificationCenterDelegate
 │
 ├── Models/                     SwiftData @Model classes
 │   ├── Habit.swift
@@ -123,6 +132,10 @@ HabitGrid/
 │
 └── Onboarding/
     └── OnboardingView.swift
+
+HabitGridWidget/
+├── HabitGridWidget.swift       WidgetBundle — small, medium, large/XL grid views
+└── WidgetDataProvider.swift    Reads shared App Group SwiftData store; WidgetSnapshot DTO
 ```
 
 **Pattern:** MVVM-lite with `@Observable` stores. SwiftData is accessed only through `HabitStore` and `MedicationStore` — views hold no `@Query` references. This keeps previews simple and isolates persistence logic.
@@ -142,6 +155,14 @@ iOS allows 64 pending notification requests per app.
 | `.customDays(n)` | n (max 7) |
 
 Medication follow-ups add 8 one-shot requests per pending dose (every 15 min for 2 hours). With many custom-day habits and multiple pending medication doses the cap can be reached; remaining requests are silently dropped.
+
+### Notification deep-link routing
+Tapping a medication notification navigates straight to the `LogTaken` sheet:
+
+1. `NotificationService` embeds `medicationID` (and `doseID` for follow-up reminders) in `content.userInfo` when scheduling.
+2. `AppNotificationDelegate` (`UNUserNotificationCenterDelegate`) is initialised as a **static property** of `HabitGridApp` so `UNUserNotificationCenter.current().delegate` is set before the first runloop tick — this is required for cold-launch notification taps to be delivered.
+3. On tap, the delegate writes `medicationID` to `NotificationRouter` (an `@Observable` singleton in the SwiftUI environment).
+4. `ContentView` observes the router and switches to the Today tab; `MedicationTodaySection` reacts and opens `LogTakenSheet` for the matching pending dose.
 
 ### Actor isolation and SwiftData safety
 - `NotificationService` is an `actor`; all public methods are `async`.
@@ -283,6 +304,6 @@ The app ships with English (`en`) and Spanish (`es`) string tables in `HabitGrid
 ## Known limitations
 
 - **Notification cap:** With many custom-day habits and multiple pending medication doses, the iOS 64-request limit can be reached. Remaining requests are silently dropped.
-- **No iCloud sync:** All data lives in a local SwiftData store. To enable CloudKit sync, change the `ModelConfiguration` in `HabitGridApp` to use `.cloudKitDatabase` and add the CloudKit entitlement.
+- **iCloud sync is opt-in:** A toggle in Settings stores the preference, but the sync only takes effect after adding an active iCloud/CloudKit entitlement and restarting the app. Without an entitlement the app always uses a local SwiftData store.
 - **Portrait only on iPhone:** The app is locked to portrait on iPhone. iPad supports all orientations.
 - **No Apple Watch companion:** Habit and medication logging is iPhone-only.

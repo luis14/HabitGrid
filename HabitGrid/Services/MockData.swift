@@ -255,12 +255,14 @@ extension MockData {
         var rng = SeededRNG(seed: 42)
         var entries: [MoodEntry] = []
 
+        // Use per-habit seeds so adding/reordering habits doesn't shift mood distribution.
         let completionDays: Set<Date> = {
             var days = Set<Date>()
             for habit in habits {
+                var habitRNG = SeededRNG(seed: abs(habit.id.hashValue) % 100_000)
                 for offset in 0..<90 {
                     guard let day = cal.date(byAdding: .day, value: -offset, to: today) else { continue }
-                    if habit.schedule.isDue(on: day, calendar: cal) && rng.nextDouble() < 0.82 {
+                    if habit.schedule.isDue(on: day, calendar: cal) && habitRNG.nextDouble() < 0.82 {
                         days.insert(day)
                     }
                 }

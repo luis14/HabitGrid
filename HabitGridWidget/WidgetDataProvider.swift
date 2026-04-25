@@ -36,10 +36,12 @@ struct WidgetSnapshot {
 
     static let placeholder: WidgetSnapshot = {
         let rows: [HabitGridRow] = [
-            ("Morning Run", "figure.run",  "34C759"),
-            ("Meditation",  "figure.yoga", "AF52DE"),
-            ("Read",        "book.fill",   "007AFF"),
-            ("Water",       "drop.fill",   "5AC8FA"),
+            ("Morning Run",      "figure.run",                        "34C759"),
+            ("Meditation",       "figure.yoga",                       "AF52DE"),
+            ("Read",             "book.fill",                         "007AFF"),
+            ("Water",            "drop.fill",                         "5AC8FA"),
+            ("Strength",         "figure.strengthtraining.traditional","FF9500"),
+            ("Journaling",       "pencil",                            "FF2D55"),
         ].map { name, emoji, hex in
             HabitGridRow(id: UUID(), name: name, emoji: emoji, colorHex: hex,
                          completed: (0..<28).map { $0 % 3 != 2 })
@@ -75,20 +77,28 @@ enum WidgetDataProvider {
             Habit.self, HabitCompletion.self, MoodEntry.self,
             Medication.self, MedicationDose.self
         ])
-        // Prefer App Group so the widget reads the same store as the main app.
-        if FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: habitGridAppGroupID) != nil {
-            let config = ModelConfiguration(
-                schema: schema,
-                allowsSave: false,
-                groupContainer: .identifier(habitGridAppGroupID)
-            )
+        // Use an explicit URL derived from the App Group container so both the
+        // main app and this extension always open the exact same SQLite file.
+        if let groupURL = FileManager.default.containerURL(
+            forSecurityApplicationGroupIdentifier: habitGridAppGroupID
+        ) {
+            let storeURL = groupURL
+                .appendingPathComponent("Library/Application Support", isDirectory: true)
+                .appendingPathComponent("default.store")
+            let config = ModelConfiguration(schema: schema, url: storeURL, allowsSave: false)
             if let container = try? ModelContainer(for: schema, configurations: config) {
                 return container
             }
         }
-        // Simulator fallback: standard Application Support location.
-        let fallback = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-        return try? ModelContainer(for: schema, configurations: fallback)
+        // Simulator fallback: read from the app's local Application Support.
+        if let appSupportURL = FileManager.default.urls(
+            for: .applicationSupportDirectory, in: .userDomainMask
+        ).first {
+            let storeURL = appSupportURL.appendingPathComponent("default.store")
+            let fallback = ModelConfiguration(schema: schema, url: storeURL, allowsSave: false)
+            return try? ModelContainer(for: schema, configurations: fallback)
+        }
+        return nil
     }
 
     private static func load(context: ModelContext) -> WidgetSnapshot {
@@ -124,8 +134,8 @@ enum WidgetDataProvider {
             )
         }
 
-        // Build 28-day grids for top 4 active habits.
-        let gridHabits = Array(habits.prefix(4))
+        // Build 28-day grids for top 6 habits (extra-large widget shows up to 6).
+        let gridHabits = Array(habits.prefix(6))
         guard let gridStart = calendar.date(byAdding: .day, value: -27, to: today) else {
             return WidgetSnapshot(completedToday: rows.filter(\.isComplete).count,
                                   totalToday: dueHabits.count,
@@ -139,12 +149,14 @@ enum WidgetDataProvider {
         )
         allCompDesc.fetchLimit = 500
         let allComps = (try? context.fetch(allCompDesc)) ?? []
-        let compSet = Set(allComps.filter { $0.count > 0 }.map { "\($0.habitID)-\($0.date)" })
+        // Use a struct key instead of string concatenation to avoid locale/format issues.
+        struct CompKey: Hashable { let habitID: UUID; let date: Date }
+        let compSet = Set(allComps.filter { $0.count > 0 }.map { CompKey(habitID: $0.habitID, date: $0.date) })
 
         let habitGrids = gridHabits.map { habit in
             let days: [Bool] = (0..<28).map { offset in
                 guard let day = calendar.date(byAdding: .day, value: offset - 27, to: today) else { return false }
-                let key = "\(habit.id)-\(calendar.startOfDay(for: day))"
+                let key = CompKey(habitID: habit.id, date: calendar.startOfDay(for: day))
                 return compSet.contains(key)
             }
             return WidgetSnapshot.HabitGridRow(

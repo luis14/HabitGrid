@@ -12,6 +12,7 @@
 		0A865FBE15A8CDD084D59397 /* HabitsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97689035456CAAA157331DF0 /* HabitsListView.swift */; };
 		1056FFF1AFC923ABC4E16E96 /* MedicationDose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BAA06C649A187A48CAA7E3 /* MedicationDose.swift */; };
 		17E6D1301009109BB217D38C /* HabitGridApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31E99AAF93AF847D26B70BE /* HabitGridApp.swift */; };
+		AA11BB22CC33DD44EE55FF67 /* NotificationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA11BB22CC33DD44EE55FF66 /* NotificationRouter.swift */; };
 		1BB60FC435E4C060FDFAA3A4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45FAC9B9A9CE8F89C295F791 /* Localizable.strings */; };
 		1C5824B849A6D04505F86B52 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC29EF32AD19759FEB830A6 /* ContentView.swift */; };
 		1D0408AF8B59D0EE7626C13A /* MedStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107059AEC8B083C492623CE4 /* MedStatsView.swift */; };
@@ -108,7 +109,7 @@
 		107059AEC8B083C492623CE4 /* MedStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedStatsView.swift; sourceTree = "<group>"; };
 		170F32AFC95C1A05DB4229AC /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		175A2935BA519B703BEF7BB5 /* HabitStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitStatsView.swift; sourceTree = "<group>"; };
-		1BBACFE7FC9B985AF477039A /* HabitGridUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HabitGridUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BBACFE7FC9B985AF477039A /* HabitGridUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HabitGridUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C9D3022BDDE081CCE33D506 /* MedsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedsListView.swift; sourceTree = "<group>"; };
 		1FE97A961417CAFAA6B8AE13 /* MarkMedicationTakenIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkMedicationTakenIntent.swift; sourceTree = "<group>"; };
 		213BE2CBB063DC7E0F8C308C /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -130,7 +131,7 @@
 		7A1E674CB5FD1D7A9158C0F6 /* HabitGrid.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HabitGrid.entitlements; sourceTree = "<group>"; };
 		7D46A906ACBEFD60C78D5436 /* MedicationStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationStoreTests.swift; sourceTree = "<group>"; };
 		7F2C27AAB414B7ED6BE11B95 /* MiniContributionGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniContributionGraph.swift; sourceTree = "<group>"; };
-		7FDF8FED7D24ABF54C4EF127 /* HabitGridTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HabitGridTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FDF8FED7D24ABF54C4EF127 /* HabitGridTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HabitGridTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		802F2B1E00D097382F5F9CEA /* ContributionGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionGraph.swift; sourceTree = "<group>"; };
 		844E61241FA078D471BA1971 /* Medication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medication.swift; sourceTree = "<group>"; };
 		84CEB3D2313FE58A81BE90C1 /* NotificationCapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCapTests.swift; sourceTree = "<group>"; };
@@ -143,8 +144,8 @@
 		B1F31FA589E0F01941387A18 /* MoodEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodEntry.swift; sourceTree = "<group>"; };
 		B496862AA3980AB1311A22B6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		BA44D7EE60C16B65371CE7C9 /* AddEditHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditHabitView.swift; sourceTree = "<group>"; };
-		BEC9F6118284F2AE5D6179A4 /* HabitGridWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = HabitGridWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		C3B276803BFA28BA881D60AE /* HabitGrid.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = HabitGrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BEC9F6118284F2AE5D6179A4 /* HabitGridWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HabitGridWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3B276803BFA28BA881D60AE /* HabitGrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitGrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4100D14C5662C1AEA41A4C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C748EA82E4A4320179E26CC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CBA8638382BA8A8639B8CCFA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -156,6 +157,7 @@
 		E838FC2AF425780EB233A983 /* MedicationTodaySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationTodaySection.swift; sourceTree = "<group>"; };
 		EA8AFEE678A0FCC718234188 /* HabitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitStore.swift; sourceTree = "<group>"; };
 		F31E99AAF93AF847D26B70BE /* HabitGridApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitGridApp.swift; sourceTree = "<group>"; };
+		AA11BB22CC33DD44EE55FF66 /* NotificationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -164,6 +166,7 @@
 			children = (
 				5CC29EF32AD19759FEB830A6 /* ContentView.swift */,
 				F31E99AAF93AF847D26B70BE /* HabitGridApp.swift */,
+				AA11BB22CC33DD44EE55FF66 /* NotificationRouter.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -445,7 +448,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 2640;
 				TargetAttributes = {
 					A4AB586F44C76631DB9AA6E5 = {
 						DevelopmentTeam = "";
@@ -514,6 +517,7 @@
 				304F539B273B04E9C26BCDE0 /* HabitCard.swift in Sources */,
 				AC63499DF0C98B3E9BF866AD /* HabitCompletion.swift in Sources */,
 				17E6D1301009109BB217D38C /* HabitGridApp.swift in Sources */,
+				AA11BB22CC33DD44EE55FF67 /* NotificationRouter.swift in Sources */,
 				806B580FB84ACBFB6276BFA6 /* HabitGridShortcuts.swift in Sources */,
 				08CAC67BA13AC2D6C0428F53 /* HabitSchedule.swift in Sources */,
 				4F33F1DF11F4E0F640ED7790 /* HabitStatsView.swift in Sources */,
@@ -728,6 +732,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -774,6 +779,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
@@ -804,6 +810,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -857,6 +864,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

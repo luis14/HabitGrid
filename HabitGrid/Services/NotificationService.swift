@@ -68,14 +68,12 @@ actor NotificationService {
     /// Skips scheduling and reports to `NotificationCapBannerState` when the
     /// 60-request budget would be exceeded.
     func schedule(for habit: Habit) async {
-        guard let reminderTime = habit.reminderTime, !habit.isArchived else {
+        guard habit.reminderTime != nil, !habit.isArchived else {
             cancel(for: habit)
             return
         }
         guard await isAuthorised else { return }
-
         cancel(for: habit)   // remove stale requests first (lowers pending count)
-
         let slotsNeeded = Self.requestCount(for: habit)
         let currentPending = await center.pendingNotificationRequests().count
         if Self.wouldExceedBudget(pending: currentPending, newSlots: slotsNeeded) {
@@ -85,33 +83,7 @@ actor NotificationService {
             }
             return
         }
-
-        let cal = Calendar.current
-        let hourMinute = cal.dateComponents([.hour, .minute], from: reminderTime)
-
-        let content = UNMutableNotificationContent()
-        content.title = "\(habit.emoji) \(habit.name)"
-        content.body  = "Time to check in on your habit."
-        content.sound = .default
-
-        switch habit.schedule {
-        case .daily, .timesPerWeek:
-            await add(id: notifID(habit), content: content, components: hourMinute)
-
-        case .weekdays:
-            for wd in 2...6 {
-                var comps = hourMinute
-                comps.weekday = wd
-                await add(id: notifID(habit, suffix: wd), content: content, components: comps)
-            }
-
-        case .customDays(let days):
-            for day in days {
-                var comps = hourMinute
-                comps.weekday = day + 1
-                await add(id: notifID(habit, suffix: day), content: content, components: comps)
-            }
-        }
+        await scheduleNoCapCheck(for: habit)
     }
 
     /// Cancels all notifications for `habit`.
@@ -176,47 +148,10 @@ actor NotificationService {
     /// specific MedicationDose — call `scheduleFollowUps(for:medication:)` separately.
     func schedule(for medication: Medication) async {
         cancel(for: medication)
-        guard !medication.isArchived else { return }
-        guard await isAuthorised else { return }
+        guard !medication.isArchived, await isAuthorised else { return }
         if case .asNeeded = medication.schedule { return }
         guard !medication.dosesPerDay.isEmpty else { return }
-
-        let cal = Calendar.current
-        let desc = medication.strength.isEmpty
-            ? medication.form.displayName.lowercased()
-            : "\(medication.strength) \(medication.form.displayName.lowercased())"
-
-        for (i, doseTime) in medication.dosesPerDay.enumerated() {
-            let hm = cal.dateComponents([.hour, .minute], from: doseTime)
-
-            let content = UNMutableNotificationContent()
-            content.title = medication.name
-            content.body  = "Time to take your \(desc)."
-            content.sound = .default
-            if #available(iOS 15.0, *) {
-                content.interruptionLevel = .timeSensitive
-            }
-
-            switch medication.schedule {
-            case .daily:
-                await add(id: medID(medication, dose: i, slot: 0),
-                          content: content, components: hm)
-            case .weekdays:
-                for wd in 2...6 {
-                    var c = hm; c.weekday = wd
-                    await add(id: medID(medication, dose: i, slot: 0, suffix: wd),
-                              content: content, components: c)
-                }
-            case .customDays(let days):
-                for day in days {
-                    var c = hm; c.weekday = day + 1
-                    await add(id: medID(medication, dose: i, slot: 0, suffix: day),
-                              content: content, components: c)
-                }
-            case .asNeeded:
-                break
-            }
-        }
+        await scheduleNoCapCheck(for: medication)
     }
 
     /// Follow-up offsets: every 15 min for up to 2 hours after the scheduled dose time.
@@ -240,6 +175,8 @@ actor NotificationService {
             content.title = medication.name
             content.body  = "Reminder: still time to take your \(desc)."
             content.sound = .default
+            content.userInfo = ["medicationID": medication.id.uuidString,
+                                "doseID": dose.id.uuidString]
             if #available(iOS 15.0, *) {
                 content.interruptionLevel = .timeSensitive
             }
@@ -355,6 +292,7 @@ actor NotificationService {
             content.title = medication.name
             content.body  = "Time to take your \(desc)."
             content.sound = .default
+            content.userInfo = ["medicationID": medication.id.uuidString]
             if #available(iOS 15.0, *) {
                 content.interruptionLevel = .timeSensitive
             }

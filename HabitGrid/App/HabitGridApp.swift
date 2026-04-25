@@ -1,12 +1,28 @@
 import SwiftUI
 import SwiftData
 import WidgetKit
+import UserNotifications
 
 @main
 struct HabitGridApp: App {
 
     @AppStorage("hasOnboarded")  private var hasOnboarded  = false
     @AppStorage("themeOverride") private var themeOverride = "system"
+
+    // Static so the delegate is alive before any SwiftUI view is created and
+    // UNUserNotificationCenter.delegate is set before the first runloop tick.
+    // This guarantees cold-launch notification taps are delivered to the delegate.
+    private static let router = NotificationRouter()
+    private static let notifDelegate: AppNotificationDelegate = {
+        let d = AppNotificationDelegate(router: HabitGridApp.router)
+        UNUserNotificationCenter.current().delegate = d
+        return d
+    }()
+
+    init() {
+        // Force static initializer to run before the scene connects.
+        _ = Self.notifDelegate
+    }
 
     private static let container: ModelContainer = {
         let schema = Schema([
@@ -46,22 +62,24 @@ struct HabitGridApp: App {
     /// configuration additionally enables CloudKit replication.
     /// Returns nil when the App Group entitlement is absent (e.g. bare simulator).
     private static func appGroupConfig(schema: Schema) -> ModelConfiguration? {
-        guard FileManager.default.containerURL(
+        guard let groupURL = FileManager.default.containerURL(
             forSecurityApplicationGroupIdentifier: "group.com.habitgrid.shared"
-        ) != nil else { return nil }
+        ) else { return nil }
+
+        // Build an explicit URL so the widget extension opens the same file.
+        let libURL = groupURL.appendingPathComponent("Library/Application Support", isDirectory: true)
+        try? FileManager.default.createDirectory(at: libURL, withIntermediateDirectories: true)
+        let storeURL = libURL.appendingPathComponent("default.store")
 
         let syncEnabled = UserDefaults.standard.bool(forKey: "iCloudSyncEnabled")
         if syncEnabled {
             return ModelConfiguration(
                 schema: schema,
-                groupContainer: .identifier("group.com.habitgrid.shared"),
+                url: storeURL,
                 cloudKitDatabase: .private("iCloud.com.habitgrid.shared")
             )
         }
-        return ModelConfiguration(
-            schema: schema,
-            groupContainer: .identifier("group.com.habitgrid.shared")
-        )
+        return ModelConfiguration(schema: schema, url: storeURL)
     }
 
     private static func wipeStore() {
@@ -90,6 +108,7 @@ struct HabitGridApp: App {
         WindowGroup {
             AppRootView(hasOnboarded: $hasOnboarded)
                 .preferredColorScheme(colorScheme)
+                .environment(Self.router)
         }
         .modelContainer(Self.container)
     }
