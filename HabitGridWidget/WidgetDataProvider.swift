@@ -75,20 +75,28 @@ enum WidgetDataProvider {
             Habit.self, HabitCompletion.self, MoodEntry.self,
             Medication.self, MedicationDose.self
         ])
-        // Prefer App Group so the widget reads the same store as the main app.
-        if FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: habitGridAppGroupID) != nil {
-            let config = ModelConfiguration(
-                schema: schema,
-                allowsSave: false,
-                groupContainer: .identifier(habitGridAppGroupID)
-            )
+        // Use an explicit URL derived from the App Group container so both the
+        // main app and this extension always open the exact same SQLite file.
+        if let groupURL = FileManager.default.containerURL(
+            forSecurityApplicationGroupIdentifier: habitGridAppGroupID
+        ) {
+            let storeURL = groupURL
+                .appendingPathComponent("Library/Application Support", isDirectory: true)
+                .appendingPathComponent("default.store")
+            let config = ModelConfiguration(schema: schema, url: storeURL, allowsSave: false)
             if let container = try? ModelContainer(for: schema, configurations: config) {
                 return container
             }
         }
-        // Simulator fallback: standard Application Support location.
-        let fallback = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-        return try? ModelContainer(for: schema, configurations: fallback)
+        // Simulator fallback: read from the app's local Application Support.
+        if let appSupportURL = FileManager.default.urls(
+            for: .applicationSupportDirectory, in: .userDomainMask
+        ).first {
+            let storeURL = appSupportURL.appendingPathComponent("default.store")
+            let fallback = ModelConfiguration(schema: schema, url: storeURL, allowsSave: false)
+            return try? ModelContainer(for: schema, configurations: fallback)
+        }
+        return nil
     }
 
     private static func load(context: ModelContext) -> WidgetSnapshot {

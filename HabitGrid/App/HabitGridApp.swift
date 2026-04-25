@@ -46,22 +46,24 @@ struct HabitGridApp: App {
     /// configuration additionally enables CloudKit replication.
     /// Returns nil when the App Group entitlement is absent (e.g. bare simulator).
     private static func appGroupConfig(schema: Schema) -> ModelConfiguration? {
-        guard FileManager.default.containerURL(
+        guard let groupURL = FileManager.default.containerURL(
             forSecurityApplicationGroupIdentifier: "group.com.habitgrid.shared"
-        ) != nil else { return nil }
+        ) else { return nil }
+
+        // Build an explicit URL so the widget extension opens the same file.
+        let libURL = groupURL.appendingPathComponent("Library/Application Support", isDirectory: true)
+        try? FileManager.default.createDirectory(at: libURL, withIntermediateDirectories: true)
+        let storeURL = libURL.appendingPathComponent("default.store")
 
         let syncEnabled = UserDefaults.standard.bool(forKey: "iCloudSyncEnabled")
         if syncEnabled {
             return ModelConfiguration(
                 schema: schema,
-                groupContainer: .identifier("group.com.habitgrid.shared"),
+                url: storeURL,
                 cloudKitDatabase: .private("iCloud.com.habitgrid.shared")
             )
         }
-        return ModelConfiguration(
-            schema: schema,
-            groupContainer: .identifier("group.com.habitgrid.shared")
-        )
+        return ModelConfiguration(schema: schema, url: storeURL)
     }
 
     private static func wipeStore() {
