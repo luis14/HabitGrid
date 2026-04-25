@@ -104,7 +104,7 @@ enum WidgetDataProvider {
         let dueHabits = habits.filter { $0.schedule.isDue(on: today, calendar: calendar) }
 
         guard !dueHabits.isEmpty else {
-            return WidgetSnapshot(completedToday: 0, totalToday: 0, topHabits: [], date: today)
+            return WidgetSnapshot(completedToday: 0, totalToday: 0, topHabits: [], habitGrids: [], date: today)
         }
 
         var completionDesc = FetchDescriptor<HabitCompletion>(
@@ -128,8 +128,10 @@ enum WidgetDataProvider {
         let gridHabits = Array(habits.prefix(4))
         guard let gridStart = calendar.date(byAdding: .day, value: -27, to: today) else {
             return WidgetSnapshot(completedToday: rows.filter(\.isComplete).count,
-                                  totalToday: dueHabits.count, topHabits: Array(rows.prefix(5)),
-                                  habitGrids: [], date: today)
+                                  totalToday: dueHabits.count,
+                                  topHabits: Array(rows.prefix(5)),
+                                  habitGrids: [],
+                                  date: today)
         }
 
         var allCompDesc = FetchDescriptor<HabitCompletion>(
