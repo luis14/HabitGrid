@@ -12,6 +12,7 @@
 		0A865FBE15A8CDD084D59397 /* HabitsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97689035456CAAA157331DF0 /* HabitsListView.swift */; };
 		1056FFF1AFC923ABC4E16E96 /* MedicationDose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BAA06C649A187A48CAA7E3 /* MedicationDose.swift */; };
 		17E6D1301009109BB217D38C /* HabitGridApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31E99AAF93AF847D26B70BE /* HabitGridApp.swift */; };
+		AA11BB22CC33DD44EE55FF67 /* NotificationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA11BB22CC33DD44EE55FF66 /* NotificationRouter.swift */; };
 		1BB60FC435E4C060FDFAA3A4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45FAC9B9A9CE8F89C295F791 /* Localizable.strings */; };
 		1C5824B849A6D04505F86B52 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC29EF32AD19759FEB830A6 /* ContentView.swift */; };
 		1D0408AF8B59D0EE7626C13A /* MedStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107059AEC8B083C492623CE4 /* MedStatsView.swift */; };
@@ -156,6 +157,7 @@
 		E838FC2AF425780EB233A983 /* MedicationTodaySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationTodaySection.swift; sourceTree = "<group>"; };
 		EA8AFEE678A0FCC718234188 /* HabitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitStore.swift; sourceTree = "<group>"; };
 		F31E99AAF93AF847D26B70BE /* HabitGridApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitGridApp.swift; sourceTree = "<group>"; };
+		AA11BB22CC33DD44EE55FF66 /* NotificationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -164,6 +166,7 @@
 			children = (
 				5CC29EF32AD19759FEB830A6 /* ContentView.swift */,
 				F31E99AAF93AF847D26B70BE /* HabitGridApp.swift */,
+				AA11BB22CC33DD44EE55FF66 /* NotificationRouter.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -514,6 +517,7 @@
 				304F539B273B04E9C26BCDE0 /* HabitCard.swift in Sources */,
 				AC63499DF0C98B3E9BF866AD /* HabitCompletion.swift in Sources */,
 				17E6D1301009109BB217D38C /* HabitGridApp.swift in Sources */,
+				AA11BB22CC33DD44EE55FF67 /* NotificationRouter.swift in Sources */,
 				806B580FB84ACBFB6276BFA6 /* HabitGridShortcuts.swift in Sources */,
 				08CAC67BA13AC2D6C0428F53 /* HabitSchedule.swift in Sources */,
 				4F33F1DF11F4E0F640ED7790 /* HabitStatsView.swift in Sources */,

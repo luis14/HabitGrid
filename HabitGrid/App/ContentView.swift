@@ -2,13 +2,15 @@ import SwiftUI
 
 struct ContentView: View {
 
-    @Environment(HabitStore.self)      private var store
-    @Environment(MedicationStore.self) private var medStore
+    @Environment(HabitStore.self)        private var store
+    @Environment(MedicationStore.self)   private var medStore
+    @Environment(NotificationRouter.self) private var router
     @AppStorage("weekStartDay") private var weekStartDay: Int = 0
+    @State private var selectedTab = 0
 
     var body: some View {
         ZStack(alignment: .top) {
-            TabView {
+            TabView(selection: $selectedTab) {
                 TodayView()
                     .tabItem { Label("Today", systemImage: "checkmark.circle.fill") }
                     .tag(0)
@@ -30,6 +32,9 @@ struct ContentView: View {
                     .tag(4)
             }
             .tint(.accentColor)
+            .onChange(of: router.pendingMedicationID) { _, id in
+                if id != nil { selectedTab = 0 }
+            }
 
             NotificationCapBanner()
         }

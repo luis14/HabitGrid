@@ -4,7 +4,8 @@ import SwiftUI
 
 struct MedicationTodaySection: View {
 
-    @Environment(MedicationStore.self) private var medStore
+    @Environment(MedicationStore.self)   private var medStore
+    @Environment(NotificationRouter.self) private var router
     @State private var pairs: [(med: Medication, dose: MedicationDose)] = []
     @State private var logEntry: (med: Medication, dose: MedicationDose)?
     @State private var errorMessage: String?
@@ -44,7 +45,13 @@ struct MedicationTodaySection: View {
                 }
             }
         }
-        .onAppear { refresh() }
+        .onAppear {
+            refresh()
+            openPendingDose()
+        }
+        .onChange(of: router.pendingMedicationID) { _, _ in
+            openPendingDose()
+        }
         .alert("Could not update dose", isPresented: Binding(
             get: { errorMessage != nil },
             set: { if !$0 { errorMessage = nil } }
@@ -89,6 +96,16 @@ struct MedicationTodaySection: View {
                 return (med: med, dose: dose)
             }
             .sorted { $0.dose.scheduledAt < $1.dose.scheduledAt }
+    }
+
+    /// If a notification tap routed us here, find the first pending dose for
+    /// that medication and open the LogTakenSheet automatically.
+    private func openPendingDose() {
+        guard let medID = router.pendingMedicationID else { return }
+        if let match = pairs.first(where: { $0.med.id == medID && $0.dose.status == .pending }) {
+            logEntry = match
+        }
+        router.pendingMedicationID = nil
     }
 }
 

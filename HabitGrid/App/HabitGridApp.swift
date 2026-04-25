@@ -1,12 +1,15 @@
 import SwiftUI
 import SwiftData
 import WidgetKit
+import UserNotifications
 
 @main
 struct HabitGridApp: App {
 
     @AppStorage("hasOnboarded")  private var hasOnboarded  = false
     @AppStorage("themeOverride") private var themeOverride = "system"
+
+    @State private var router = NotificationRouter()
 
     private static let container: ModelContainer = {
         let schema = Schema([
@@ -92,6 +95,7 @@ struct HabitGridApp: App {
         WindowGroup {
             AppRootView(hasOnboarded: $hasOnboarded)
                 .preferredColorScheme(colorScheme)
+                .environment(router)
         }
         .modelContainer(Self.container)
     }
@@ -113,8 +117,10 @@ struct AppRootView: View {
 
     @Binding var hasOnboarded: Bool
     @Environment(\.modelContext) private var modelContext
+    @Environment(NotificationRouter.self) private var router
     @State private var store: HabitStore?
     @State private var medStore: MedicationStore?
+    @State private var notifDelegate: AppNotificationDelegate?
 
     var body: some View {
         Group {
@@ -134,6 +140,11 @@ struct AppRootView: View {
             }
         }
         .onAppear {
+            if notifDelegate == nil {
+                let d = AppNotificationDelegate(router: router)
+                notifDelegate = d
+                UNUserNotificationCenter.current().delegate = d
+            }
             guard store == nil else { return }
             let s  = HabitStore(context: modelContext)
             let ms = MedicationStore(context: modelContext)

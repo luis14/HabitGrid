@@ -175,6 +175,8 @@ actor NotificationService {
             content.title = medication.name
             content.body  = "Reminder: still time to take your \(desc)."
             content.sound = .default
+            content.userInfo = ["medicationID": medication.id.uuidString,
+                                "doseID": dose.id.uuidString]
             if #available(iOS 15.0, *) {
                 content.interruptionLevel = .timeSensitive
             }
@@ -290,6 +292,7 @@ actor NotificationService {
             content.title = medication.name
             content.body  = "Time to take your \(desc)."
             content.sound = .default
+            content.userInfo = ["medicationID": medication.id.uuidString]
             if #available(iOS 15.0, *) {
                 content.interruptionLevel = .timeSensitive
             }
