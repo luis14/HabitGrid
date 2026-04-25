@@ -202,9 +202,10 @@ private struct LargeWidgetView: View {
 
     private func habitRow(_ row: WidgetSnapshot.HabitGridRow) -> some View {
         HStack(spacing: 6) {
-            Text(row.emoji)
-                .font(.system(size: 13))
+            Image(systemName: row.emoji)
+                .font(.system(size: 12))
                 .frame(width: 18)
+                .foregroundStyle(Color(hex: row.colorHex))
 
             HStack(spacing: cellSpacing) {
                 ForEach(0..<28, id: \.self) { i in
@@ -219,11 +220,15 @@ private struct LargeWidgetView: View {
     }
 
     private var weekdayLabels: some View {
-        HStack(spacing: cellSpacing) {
-            // offset for emoji column
-            Color.clear.frame(width: 24)
+        let cal = Calendar.current
+        let today = cal.startOfDay(for: Date())
+        let startDay = cal.date(byAdding: .day, value: -27, to: today) ?? today
+        // weekday component: 1=Sun…7=Sat → 0-based Sunday = 0
+        let startWeekday = cal.component(.weekday, from: startDay) - 1
+        return HStack(spacing: cellSpacing) {
+            Color.clear.frame(width: 24)   // offset for emoji column
             ForEach(0..<28, id: \.self) { i in
-                let weekday = (i) % 7
+                let weekday = (startWeekday + i) % 7
                 Group {
                     if weekday == 0 {
                         Text("S")

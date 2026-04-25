@@ -73,10 +73,12 @@ enum IntentModelContainer {
             Habit.self, HabitCompletion.self, MoodEntry.self,
             Medication.self, MedicationDose.self
         ])
-        if let url = FileManager.default.containerURL(
+        if let groupURL = FileManager.default.containerURL(
             forSecurityApplicationGroupIdentifier: "group.com.habitgrid.shared"
         ) {
-            let config = ModelConfiguration(schema: schema, url: url.appendingPathComponent("default.store"))
+            let libURL = groupURL.appendingPathComponent("Library/Application Support", isDirectory: true)
+            let storeURL = libURL.appendingPathComponent("default.store")
+            let config = ModelConfiguration(schema: schema, url: storeURL)
             return try ModelContainer(for: schema, configurations: config)
         }
         return try ModelContainer(for: schema)

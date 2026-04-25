@@ -120,7 +120,7 @@ final class HabitStore {
             predicate: #Predicate { $0.habitID == habitID && $0.date >= start && $0.date <= end },
             sortBy: [SortDescriptor(\.date)]
         )
-        descriptor.fetchLimit = 400
+        descriptor.fetchLimit = 3650
         return try context.fetch(descriptor)
     }
 
