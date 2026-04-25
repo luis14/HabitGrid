@@ -34,11 +34,22 @@ struct HabitGridApp: App {
 
     /// Builds a ModelConfiguration that stores the SQLite file in the shared App Group
     /// container (accessible by both the main app and the WidgetKit extension).
+    /// When iCloud sync is enabled (UserDefaults key "iCloudSyncEnabled"), the
+    /// configuration additionally enables CloudKit replication.
     /// Returns nil when the App Group entitlement is absent (e.g. bare simulator).
     private static func appGroupConfig(schema: Schema) -> ModelConfiguration? {
         guard FileManager.default.containerURL(
             forSecurityApplicationGroupIdentifier: "group.com.habitgrid.shared"
         ) != nil else { return nil }
+
+        let syncEnabled = UserDefaults.standard.bool(forKey: "iCloudSyncEnabled")
+        if syncEnabled {
+            return ModelConfiguration(
+                schema: schema,
+                groupContainer: .identifier("group.com.habitgrid.shared"),
+                cloudKitDatabase: .private("iCloud.com.habitgrid.shared")
+            )
+        }
         return ModelConfiguration(
             schema: schema,
             groupContainer: .identifier("group.com.habitgrid.shared")

@@ -57,9 +57,10 @@ struct SettingsView: View {
     @Environment(MedicationStore.self) private var medStore
     @Environment(\.modelContext) private var modelContext
 
-    @AppStorage("weekStartDay")   private var weekStartDay: Int = 0  // 0=Sun, 1=Mon
-    @AppStorage("themeOverride")  private var themeOverride: String = "system"
-    @AppStorage("hasOnboarded")   private var hasOnboarded: Bool = false
+    @AppStorage("weekStartDay")      private var weekStartDay: Int = 0  // 0=Sun, 1=Mon
+    @AppStorage("themeOverride")     private var themeOverride: String = "system"
+    @AppStorage("hasOnboarded")      private var hasOnboarded: Bool = false
+    @AppStorage("iCloudSyncEnabled") private var iCloudSyncEnabled: Bool = false
 
     @State private var showResetAlert  = false
     @State private var exportItem: ExportItem? = nil
@@ -75,6 +76,7 @@ struct SettingsView: View {
                 appearanceSection
                 calendarSection
                 notificationsSection
+                iCloudSection
                 dataSection
                 aboutSection
             }
@@ -163,6 +165,23 @@ struct SettingsView: View {
                     }
                 }
             }
+        }
+    }
+
+    private var iCloudSection: some View {
+        Section {
+            Toggle(isOn: $iCloudSyncEnabled) {
+                Label("Sync with iCloud", systemImage: "icloud.fill")
+            }
+            if iCloudSyncEnabled {
+                Label("Takes effect after restarting the app.", systemImage: "info.circle")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+        } header: {
+            Text("iCloud")
+        } footer: {
+            Text("Your habits and medications are stored in iCloud and kept in sync across all your devices. Requires an active iCloud account.")
         }
     }
 
