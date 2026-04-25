@@ -130,7 +130,7 @@ struct MoodHabitCorrelationCard: View {
     private func caption(_ data: CorrelationData) -> some View {
         let doneCount = data.points.filter(\.completed).count
         let skipCount = data.points.filter { !$0.completed }.count
-        return Text("\(doneCount) completed days · \(skipCount) scheduled-but-skipped · last \(Self.lookbackDays) days")
+        return Text("\(doneCount) days completed · \(skipCount) days skipped · last \(Self.lookbackDays) days")
             .font(.caption2)
             .foregroundStyle(.tertiary)
     }

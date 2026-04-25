@@ -49,8 +49,8 @@ struct MarkMedicationTakenIntent: AppIntent {
             throw IntentError.noPendingDose(medicationName)
         }
 
-        dose.statusRaw = "taken"
-        dose.takenAt   = Date()
+        dose.status  = .taken
+        dose.takenAt = Date()
 
         if med.pillCount != nil {
             let pills = med.pillsPerDose

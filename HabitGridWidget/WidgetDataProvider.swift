@@ -139,12 +139,14 @@ enum WidgetDataProvider {
         )
         allCompDesc.fetchLimit = 500
         let allComps = (try? context.fetch(allCompDesc)) ?? []
-        let compSet = Set(allComps.filter { $0.count > 0 }.map { "\($0.habitID)-\($0.date)" })
+        // Use a struct key instead of string concatenation to avoid locale/format issues.
+        struct CompKey: Hashable { let habitID: UUID; let date: Date }
+        let compSet = Set(allComps.filter { $0.count > 0 }.map { CompKey(habitID: $0.habitID, date: $0.date) })
 
         let habitGrids = gridHabits.map { habit in
             let days: [Bool] = (0..<28).map { offset in
                 guard let day = calendar.date(byAdding: .day, value: offset - 27, to: today) else { return false }
-                let key = "\(habit.id)-\(calendar.startOfDay(for: day))"
+                let key = CompKey(habitID: habit.id, date: calendar.startOfDay(for: day))
                 return compSet.contains(key)
             }
             return WidgetSnapshot.HabitGridRow(
