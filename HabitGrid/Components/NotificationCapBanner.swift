@@ -84,9 +84,9 @@ struct NotificationCapBanner: View {
         let names = state.droppedNames
         switch names.count {
         case 1:
-            return ""\(names[0])" lost its reminder slot. iOS allows 60 active reminders. Remove unused reminders to free up slots."
+            return "\"\(names[0])\" lost its reminder slot. iOS allows 60 active reminders. Remove unused reminders to free up slots."
         case 2:
-            return ""\(names[0])" and "\(names[1])" lost their reminder slots. Remove unused reminders to free up slots."
+            return "\"\(names[0])\" and \"\(names[1])\" lost their reminder slots. Remove unused reminders to free up slots."
         default:
             let first = names.prefix(2).joined(separator: ", ")
             return "\(first) and \(names.count - 2) more lost their reminder slots. iOS allows 60 active reminders."
