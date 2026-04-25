@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import WidgetKit
 
 @main
 struct HabitGridApp: App {
@@ -12,18 +13,14 @@ struct HabitGridApp: App {
             Habit.self, HabitCompletion.self, MoodEntry.self,
             Medication.self, MedicationDose.self
         ])
-        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        // Use the App Group container so the widget extension can read the same store.
+        let config = appGroupConfig(schema: schema) ?? ModelConfiguration(schema: schema)
         do {
             return try ModelContainer(for: schema, configurations: config)
         } catch {
             #if DEBUG
-            // Schema changed — wipe dev store and start fresh
-            if let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first,
-               let storeFiles = try? FileManager.default.contentsOfDirectory(at: appSupport, includingPropertiesForKeys: nil) {
-                storeFiles
-                    .filter { $0.pathExtension == "store" || $0.lastPathComponent.contains(".store") }
-                    .forEach { try? FileManager.default.removeItem(at: $0) }
-            }
+            // Schema changed — wipe dev store and start fresh.
+            wipeStore(config: config)
             do {
                 return try ModelContainer(for: schema, configurations: config)
             } catch {
@@ -34,6 +31,34 @@ struct HabitGridApp: App {
             #endif
         }
     }()
+
+    /// Builds a ModelConfiguration that stores the SQLite file in the shared App Group
+    /// container (accessible by both the main app and the WidgetKit extension).
+    /// Returns nil when the App Group entitlement is absent (e.g. bare simulator).
+    private static func appGroupConfig(schema: Schema) -> ModelConfiguration? {
+        guard FileManager.default.containerURL(
+            forSecurityApplicationGroupIdentifier: "group.com.habitgrid.shared"
+        ) != nil else { return nil }
+        return ModelConfiguration(
+            schema: schema,
+            groupContainer: .identifier("group.com.habitgrid.shared")
+        )
+    }
+
+    private static func wipeStore(config: ModelConfiguration) {
+        // Try App Group location first, then Application Support.
+        let candidates: [URL?] = [
+            FileManager.default.containerURL(
+                forSecurityApplicationGroupIdentifier: "group.com.habitgrid.shared"
+            ),
+            FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
+        ]
+        for dir in candidates.compactMap({ $0 }) {
+            guard let files = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil) else { continue }
+            files.filter { $0.pathExtension == "store" || $0.lastPathComponent.contains(".store") }
+                 .forEach { try? FileManager.default.removeItem(at: $0) }
+        }
+    }
 
     var body: some Scene {
         WindowGroup {

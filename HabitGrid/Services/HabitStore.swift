@@ -1,6 +1,7 @@
 import Foundation
 import SwiftData
 import Observation
+import WidgetKit
 
 /// Central service for all habit and completion CRUD operations.
 /// Injectable via SwiftUI's `@Environment` so views can be previewed with `MockHabitStore`.
@@ -246,6 +247,7 @@ final class HabitStore {
     private func save() throws {
         try context.save()
         try refreshHabits()
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     // MARK: - Daily streak

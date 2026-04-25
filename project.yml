@@ -40,7 +40,7 @@ targets:
         CFBundleShortVersionString: "1.0"
         CFBundleVersion: "1"
         UILaunchStoryboardName: LaunchScreen
-        NSUserNotificationsUsageDescription: "HabitGrid uses notifications to remind you about your habits."
+        NSUserNotificationsUsageDescription: "HabitGrid uses notifications to remind you about your habits and medications."
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
         UISupportedInterfaceOrientations~ipad:
@@ -51,6 +51,11 @@ targets:
         UIApplicationSceneManifest:
           UIApplicationSupportsMultipleScenes: false
         ITSAppUsesNonExemptEncryption: false
+    entitlements:
+      path: HabitGrid/HabitGrid.entitlements
+    dependencies:
+      - target: HabitGridWidget
+        embed: true
     settings:
       base:
         SWIFT_VERSION: "5.9"
@@ -70,6 +75,38 @@ targets:
         Release:
           DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
           SWIFT_ACTIVE_COMPILATION_CONDITIONS: ""
+
+  HabitGridWidget:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: HabitGridWidget
+        createIntermediateGroups: true
+      # Shared model + utility files (compiled into the widget's own module)
+      - path: HabitGrid/Models/Habit.swift
+      - path: HabitGrid/Models/HabitCompletion.swift
+      - path: HabitGrid/Models/HabitSchedule.swift
+      - path: HabitGrid/Models/Medication.swift
+      - path: HabitGrid/Models/MedicationDose.swift
+      - path: HabitGrid/Models/MedicationSchedule.swift
+      - path: HabitGrid/Models/MoodEntry.swift
+      - path: HabitGrid/Components/Color+Hex.swift
+    info:
+      path: HabitGridWidget/Info.plist
+      properties:
+        CFBundleName: $(PRODUCT_NAME)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    entitlements:
+      path: HabitGridWidget/HabitGridWidget.entitlements
+    settings:
+      base:
+        SWIFT_VERSION: "5.9"
+        DEVELOPMENT_TEAM: ""
+        IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+        SKIP_INSTALL: YES
+        CODE_SIGN_ENTITLEMENTS: HabitGridWidget/HabitGridWidget.entitlements
 
   HabitGridTests:
     type: bundle.unit-test

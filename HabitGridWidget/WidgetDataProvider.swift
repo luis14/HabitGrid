@@ -1,0 +1,111 @@
+import Foundation
+import SwiftData
+
+let habitGridAppGroupID = "group.com.habitgrid.shared"
+
+// MARK: - Snapshot
+
+struct WidgetSnapshot {
+    let completedToday: Int
+    let totalToday: Int
+    let topHabits: [HabitRow]
+    let date: Date
+
+    struct HabitRow: Identifiable {
+        let id: UUID
+        let name: String
+        let colorHex: String
+        let isComplete: Bool
+    }
+
+    var progress: Double {
+        guard totalToday > 0 else { return 0 }
+        return Double(completedToday) / Double(totalToday)
+    }
+
+    static let placeholder = WidgetSnapshot(
+        completedToday: 3,
+        totalToday: 7,
+        topHabits: [
+            HabitRow(id: UUID(), name: "Morning Run",  colorHex: "34C759", isComplete: true),
+            HabitRow(id: UUID(), name: "Meditation",   colorHex: "007AFF", isComplete: true),
+            HabitRow(id: UUID(), name: "Read 30 min",  colorHex: "FF9500", isComplete: true),
+            HabitRow(id: UUID(), name: "Drink Water",  colorHex: "5AC8FA", isComplete: false),
+            HabitRow(id: UUID(), name: "Stretch",      colorHex: "AF52DE", isComplete: false),
+        ],
+        date: .now
+    )
+}
+
+// MARK: - Provider
+
+enum WidgetDataProvider {
+    static func snapshot() -> WidgetSnapshot {
+        guard let container = makeContainer() else { return .placeholder }
+        return load(context: ModelContext(container))
+    }
+
+    // MARK: - Private
+
+    private static func makeContainer() -> ModelContainer? {
+        let schema = Schema([
+            Habit.self, HabitCompletion.self, MoodEntry.self,
+            Medication.self, MedicationDose.self
+        ])
+        // Prefer App Group so the widget reads the same store as the main app.
+        if FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: habitGridAppGroupID) != nil {
+            let config = ModelConfiguration(
+                schema: schema,
+                allowsSave: false,
+                groupContainer: .identifier(habitGridAppGroupID)
+            )
+            if let container = try? ModelContainer(for: schema, configurations: config) {
+                return container
+            }
+        }
+        // Simulator fallback: standard Application Support location.
+        let fallback = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        return try? ModelContainer(for: schema, configurations: fallback)
+    }
+
+    private static func load(context: ModelContext) -> WidgetSnapshot {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+
+        var habitDesc = FetchDescriptor<Habit>(
+            predicate: #Predicate { $0.archivedAt == nil },
+            sortBy: [SortDescriptor(\.sortOrder)]
+        )
+        habitDesc.fetchLimit = 20
+        let habits = (try? context.fetch(habitDesc)) ?? []
+        let dueHabits = habits.filter { $0.schedule.isDue(on: today, calendar: calendar) }
+
+        guard !dueHabits.isEmpty else {
+            return WidgetSnapshot(completedToday: 0, totalToday: 0, topHabits: [], date: today)
+        }
+
+        var completionDesc = FetchDescriptor<HabitCompletion>(
+            predicate: #Predicate { $0.date == today }
+        )
+        completionDesc.fetchLimit = 100
+        let completions = (try? context.fetch(completionDesc)) ?? []
+        let countByHabit = Dictionary(grouping: completions, by: \.habitID)
+            .mapValues { $0.reduce(0) { $0 + $1.count } }
+
+        let rows = dueHabits.map { habit in
+            WidgetSnapshot.HabitRow(
+                id: habit.id,
+                name: habit.name,
+                colorHex: habit.colorHex,
+                isComplete: (countByHabit[habit.id] ?? 0) >= max(1, habit.targetCount)
+            )
+        }
+
+        return WidgetSnapshot(
+            completedToday: rows.filter(\.isComplete).count,
+            totalToday: dueHabits.count,
+            topHabits: Array(rows.prefix(5)),
+            date: today
+        )
+    }
+}
