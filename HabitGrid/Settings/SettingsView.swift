@@ -267,10 +267,10 @@ struct SettingsView: View {
             let raw = try Data(contentsOf: url)
             let export = try JSONDecoder().decode(ExportData.self, from: raw)
 
-            var imported = 0
-            let existingIDs = Set(store.activeHabits.map(\.id))
+            var importedHabits = 0
+            let existingHabitIDs = Set(store.activeHabits.map(\.id))
 
-            for dto in export.habits where !existingIDs.contains(dto.id) {
+            for dto in export.habits where !existingHabitIDs.contains(dto.id) {
                 let habit = Habit(
                     id: dto.id, name: dto.name, emoji: dto.emoji,
                     colorHex: dto.colorHex, schedule: dto.schedule,
@@ -279,7 +279,7 @@ struct SettingsView: View {
                     sortOrder: dto.sortOrder
                 )
                 try? store.addHabit(habit)
-                imported += 1
+                importedHabits += 1
             }
 
             for dto in export.completions {
@@ -294,9 +294,29 @@ struct SettingsView: View {
                     ))
                 }
             }
+
+            var importedMeds = 0
+            if let medDTOs = export.medications {
+                let existingMedIDs = Set(medStore.activeMedications.map(\.id))
+                for dto in medDTOs where !existingMedIDs.contains(dto.id) {
+                    let med = Medication(
+                        id: dto.id, name: dto.name, emoji: dto.emoji,
+                        colorHex: dto.colorHex, strength: dto.strength,
+                        form: MedicationForm(rawValue: dto.formRaw) ?? .other,
+                        prescriber: dto.prescriber, schedule: dto.schedule,
+                        dosesPerDay: dto.dosesPerDay, startDate: dto.startDate,
+                        endDate: dto.endDate, notes: dto.notes, sortOrder: dto.sortOrder
+                    )
+                    try? medStore.addMedication(med)
+                    importedMeds += 1
+                }
+            }
+
             try? modelContext.save()
 
-            importResult = "Imported \(imported) new habit(s) and \(export.completions.count) completion record(s)."
+            var parts = ["\(importedHabits) habit(s)", "\(export.completions.count) completion(s)"]
+            if importedMeds > 0 { parts.append("\(importedMeds) medication(s)") }
+            importResult = "Imported " + parts.joined(separator: ", ") + "."
         } catch {
             importResult = "Import failed: \(error.localizedDescription)"
         }
