@@ -244,6 +244,54 @@ enum MockData {
     }
 }
 
+// MARK: - Mood entries
+
+extension MockData {
+
+    /// 90 days of realistic mood entries — higher on days habits were completed.
+    static func moodEntries(for habits: [Habit]) -> [MoodEntry] {
+        let cal = Calendar.current
+        let today = cal.startOfDay(for: Date())
+        var rng = SeededRNG(seed: 42)
+        var entries: [MoodEntry] = []
+
+        let completionDays: Set<Date> = {
+            var days = Set<Date>()
+            for habit in habits {
+                for offset in 0..<90 {
+                    guard let day = cal.date(byAdding: .day, value: -offset, to: today) else { continue }
+                    if habit.schedule.isDue(on: day, calendar: cal) && rng.nextDouble() < 0.82 {
+                        days.insert(day)
+                    }
+                }
+            }
+            return days
+        }()
+
+        for offset in 0..<90 {
+            guard let day = cal.date(byAdding: .day, value: -offset, to: today) else { continue }
+            guard rng.nextDouble() < 0.75 else { continue }   // ~75% days have a mood log
+
+            let didComplete = completionDays.contains(day)
+            // Mood skews higher on completion days (3–5) vs skipped days (1–4)
+            let rawScore: Int
+            if didComplete {
+                rawScore = Int((rng.nextDouble() * 2.5) + 2.5).clamped(to: 1...5)
+            } else {
+                rawScore = Int((rng.nextDouble() * 3.0) + 1.0).clamped(to: 1...5)
+            }
+            let level = MoodLevel(rawValue: rawScore) ?? .okay
+            let logTime = day.addingTimeInterval(rng.nextDouble() * 3600 * 14 + 3600 * 8)
+            entries.append(MoodEntry(date: logTime, level: level))
+        }
+        return entries
+    }
+}
+
+private extension Int {
+    func clamped(to range: ClosedRange<Int>) -> Int { min(max(self, range.lowerBound), range.upperBound) }
+}
+
 // MARK: - Deterministic seeded PRNG (xorshift64)
 
 struct SeededRNG {

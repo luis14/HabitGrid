@@ -168,6 +168,7 @@ struct AppRootView: View {
         let habits = MockData.habits
         habits.forEach { modelContext.insert($0) }
         MockData.completions(for: habits).forEach { modelContext.insert($0) }
+        MockData.moodEntries(for: habits).forEach { modelContext.insert($0) }
         let meds = MockData.medications
         meds.forEach { modelContext.insert($0) }
         MockData.medicationDoses(for: meds).forEach { modelContext.insert($0) }
